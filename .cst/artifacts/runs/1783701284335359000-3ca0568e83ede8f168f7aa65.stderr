@@ -1,0 +1,17 @@
+
+src/server/repositories/__tests__/project-repository.test.ts:
+(pass) project repository > keeps public, owned, and favorite query boundaries distinct [149.33ms]
+(pass) project repository > keeps purchase rows unique and count mutation atomic [180.06ms]
+(pass) project repository > keeps favorite rows unique under repeated concurrent toggles [165.44ms]
+
+src/server/db/__tests__/schema.test.ts:
+(pass) D1 schema > creates the Better Auth and application tables [97.59ms]
+(pass) D1 schema > enforces foreign keys, cascade, and one user relation per project [123.27ms]
+(pass) D1 schema > stores booleans and timestamps deterministically [105.26ms]
+(pass) D1 schema > rejects generation task states with inconsistent terminal data [105.83ms]
+
+ 7 pass
+ 0 fail
+ 20 expect() calls
+Ran 7 tests across 2 files. [1018.00ms]
+$ tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.worker.json

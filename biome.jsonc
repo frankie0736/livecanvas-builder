@@ -7,7 +7,11 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["src/routeTree.gen.ts", "worker-configuration.d.ts"]
+		"ignore": [
+			"src/routeTree.gen.ts",
+			"worker-configuration.d.ts",
+			"migrations/meta/**"
+		]
 	},
 	"formatter": { "enabled": true },
 	"organizeImports": { "enabled": true },

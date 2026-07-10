@@ -29,13 +29,19 @@
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.js"],
+	"include": [
+		"drizzle.config.ts",
+		"vite.config.ts",
+		"src/router.tsx",
+		"src/routeTree.gen.ts",
+		"src/routes/**/*.ts",
+		"src/routes/**/*.tsx"
+	],
 	"exclude": [
 		"node_modules",
 		"dist",
 		".wrangler",
 		".tanstack",
-		"src/server.ts",
 		"worker-configuration.d.ts"
 	]
 }

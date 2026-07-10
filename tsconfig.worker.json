@@ -1,8 +1,13 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"types": ["vite/client"]
+		"types": ["vite/client", "bun"]
 	},
-	"include": ["src/server.ts", "worker-configuration.d.ts"],
+	"include": [
+		"src/server.ts",
+		"src/server/db/**/*.ts",
+		"src/server/repositories/**/*.ts",
+		"worker-configuration.d.ts"
+	],
 	"exclude": ["node_modules", "dist", ".wrangler", ".tanstack"]
 }

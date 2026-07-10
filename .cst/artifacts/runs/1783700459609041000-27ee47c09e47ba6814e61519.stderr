@@ -1,0 +1,12 @@
+
+src/routes/__tests__/route-manifest.test.ts:
+(pass) TanStack Start migration manifest > preserves every existing page and API path [1.44ms]
+(pass) TanStack Start migration manifest > places authenticated pages under one pathless layout [0.05ms]
+(pass) TanStack Start migration manifest > uses only the local Cloudflare binding contract [0.07ms]
+
+ 3 pass
+ 0 fail
+ 14 expect() calls
+Ran 3 tests across 1 file. [30.00ms]
+$ tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.worker.json
+$ vite build

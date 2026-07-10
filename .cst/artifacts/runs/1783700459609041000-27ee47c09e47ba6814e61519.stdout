@@ -1,0 +1,136 @@
+bun test v1.3.12 (700fc117)
+vite v8.1.4 building client environment for production...
+[2Ktransforming...✓ 156 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/client/.assetsignore                                               0.02 kB
+dist/client/assets/globals-Bx00nisp.css                                79.73 kB │ gzip: 13.77 kB
+dist/client/assets/_protected-Cv0XgKno.js                               0.07 kB │ gzip:  0.08 kB
+dist/client/assets/_protected.profile-Cv0XgKno.js                       0.07 kB │ gzip:  0.08 kB
+dist/client/assets/-placeholder-DxihGE_V.js                             0.13 kB │ gzip:  0.13 kB
+dist/client/assets/routes-Dhhdv8RN.js                                   0.14 kB │ gzip:  0.14 kB
+dist/client/assets/_protected.chat-Bp7h2nvp.js                          0.15 kB │ gzip:  0.14 kB
+dist/client/assets/_protected.wizard-CkdkN9fw.js                        0.15 kB │ gzip:  0.15 kB
+dist/client/assets/signin-CuL63xq0.js                                   0.15 kB │ gzip:  0.14 kB
+dist/client/assets/_protected.example-ByIgfPQe.js                       0.15 kB │ gzip:  0.14 kB
+dist/client/assets/_protected.gallery-Dc58j2WH.js                       0.15 kB │ gzip:  0.15 kB
+dist/client/assets/_protected.preview-Bfcl_HF-.js                       0.15 kB │ gzip:  0.14 kB
+dist/client/assets/_protected.profile.index-DDODxpWD.js                 0.15 kB │ gzip:  0.14 kB
+dist/client/assets/signout-C9bKJIk3.js                                  0.15 kB │ gzip:  0.15 kB
+dist/client/assets/_protected.dashboard-Cab4cFVQ.js                     0.15 kB │ gzip:  0.15 kB
+dist/client/assets/privacy-policy-CIRTXJYJ.js                           0.16 kB │ gzip:  0.15 kB
+dist/client/assets/_protected.profile.api-keys-zJ3Ao_Sk.js              0.16 kB │ gzip:  0.15 kB
+dist/client/assets/terms-of-service-AUeH3_vT.js                         0.16 kB │ gzip:  0.15 kB
+dist/client/assets/_protected.profile.my-projects-CDVayFMR.js           0.16 kB │ gzip:  0.15 kB
+dist/client/assets/_protected.profile.favorites-projects-DjrMNzOQ.js    0.17 kB │ gzip:  0.16 kB
+dist/client/assets/index-B2slsx_U.js                                  312.12 kB │ gzip: 99.27 kB
+
+✓ built in 302ms
+vite v8.1.4 building ssr environment for production...
+[2Ktransforming...✓ 212 modules transformed.
+rendering chunks...
+Using secrets defined in .dev.vars
+computing gzip size...
+dist/server/wrangler.json                                               1.66 kB │ gzip:   0.78 kB
+dist/server/.vite/manifest.json                                         9.18 kB │ gzip:   1.16 kB
+dist/server/assets/globals-Bx00nisp.css                                79.73 kB │ gzip:  13.77 kB
+dist/server/assets/start-5Z2QO8AU.js                                    0.14 kB │ gzip:   0.13 kB
+dist/server/assets/_protected-O-Im1oro.js                               0.18 kB │ gzip:   0.15 kB
+dist/server/assets/_protected.profile-DWyO6UvV.js                       0.19 kB │ gzip:   0.15 kB
+dist/server/assets/empty-plugin-adapters-D9UWiqvJ.js                    0.22 kB │ gzip:   0.16 kB
+dist/server/assets/-placeholder-BWBetK92.js                             0.34 kB │ gzip:   0.23 kB
+dist/server/assets/routes-Dq51enUb.js                                   0.40 kB │ gzip:   0.25 kB
+dist/server/assets/signin-xbXixhG4.js                                   0.41 kB │ gzip:   0.25 kB
+dist/server/assets/signout-DVC9HTpT.js                                  0.41 kB │ gzip:   0.25 kB
+dist/server/assets/_protected.chat-G5-GofWY.js                          0.41 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.wizard-C_l1o0kA.js                        0.42 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.example-BCC-epmp.js                       0.42 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.gallery-D3JarWbV.js                       0.42 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.preview-D7_Cyffl.js                       0.42 kB │ gzip:   0.26 kB
+dist/server/assets/privacy-policy-c2gE-pxS.js                           0.42 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.dashboard-Bofs_xPJ.js                     0.42 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.profile.index-NUrpzvWw.js                 0.43 kB │ gzip:   0.26 kB
+dist/server/assets/terms-of-service-iYTkmrwu.js                         0.43 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.profile.api-keys-r0_XsrNH.js              0.44 kB │ gzip:   0.27 kB
+dist/server/assets/_protected.profile.my-projects-CADuVeXU.js           0.44 kB │ gzip:   0.27 kB
+dist/server/assets/_protected.profile.favorites-projects-CpPoxFxs.js    0.46 kB │ gzip:   0.27 kB
+dist/server/assets/jsx-runtime-fDUpJPDC.js                              2.47 kB │ gzip:   1.08 kB
+dist/server/assets/_tanstack-start-manifest_v-C1ESFRGC.js               4.72 kB │ gzip:   0.87 kB
+dist/server/assets/react-dom-CTWf30g2.js                               18.03 kB │ gzip:   4.81 kB
+dist/server/assets/router-Djexwbn3.js                                  51.80 kB │ gzip:  12.13 kB
+dist/server/assets/Match-Dp9O-oOi.js                                  170.26 kB │ gzip:  41.61 kB
+dist/server/index.js                                                  538.63 kB │ gzip: 115.49 kB
+
+✓ built in 295ms
+
+ ⛅️ wrangler 4.110.0
+────────────────────
+Using redirected Wrangler configuration.
+ - Configuration being used: "dist/server/wrangler.json"
+ - Original user's configuration: "wrangler.jsonc"
+ - Deploy configuration file: ".wrangler/deploy/config.json"
+Attaching additional modules:
+┌──────────────────────────────────────────────────────────┬──────┬────────────┐
+│ Name                                                     │ Type │ Size       │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/-placeholder-BWBetK92.js                          │ esm  │ 0.34 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/Match-Dp9O-oOi.js                                 │ esm  │ 166.28 KiB │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected-O-Im1oro.js                            │ esm  │ 0.18 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.chat-G5-GofWY.js                       │ esm  │ 0.41 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.dashboard-Bofs_xPJ.js                  │ esm  │ 0.42 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.example-BCC-epmp.js                    │ esm  │ 0.41 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.gallery-D3JarWbV.js                    │ esm  │ 0.41 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.preview-D7_Cyffl.js                    │ esm  │ 0.41 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.profile-DWyO6UvV.js                    │ esm  │ 0.19 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.profile.api-keys-r0_XsrNH.js           │ esm  │ 0.43 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.profile.favorites-projects-CpPoxFxs.js │ esm  │ 0.45 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.profile.index-NUrpzvWw.js              │ esm  │ 0.42 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.profile.my-projects-CADuVeXU.js        │ esm  │ 0.44 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_protected.wizard-C_l1o0kA.js                     │ esm  │ 0.41 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/_tanstack-start-manifest_v-C1ESFRGC.js            │ esm  │ 4.62 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/empty-plugin-adapters-D9UWiqvJ.js                 │ esm  │ 0.22 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/jsx-runtime-fDUpJPDC.js                           │ esm  │ 2.42 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/privacy-policy-c2gE-pxS.js                        │ esm  │ 0.42 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/react-dom-CTWf30g2.js                             │ esm  │ 17.61 KiB  │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/router-Djexwbn3.js                                │ esm  │ 50.59 KiB  │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/routes-Dq51enUb.js                                │ esm  │ 0.39 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/signin-xbXixhG4.js                                │ esm  │ 0.40 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/signout-DVC9HTpT.js                               │ esm  │ 0.40 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/start-5Z2QO8AU.js                                 │ esm  │ 0.14 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ assets/terms-of-service-iYTkmrwu.js                      │ esm  │ 0.42 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼────────────┤
+│ Total (25 modules)                                       │      │ 248.86 KiB │
+└──────────────────────────────────────────────────────────┴──────┴────────────┘
+✨ Read 23 files from the assets directory /Users/fx/yansircc/livecanvas-builder/dist/client
+Total Upload: 774.86 KiB / gzip: 169.77 KiB
+Your Worker has access to the following bindings:
+Binding                                                    Resource         
+env.CHAT_GENERATION (ChatGenerationWorkflow)               Workflow         
+env.DB (livecanvas-builder-local)                          D1 Database      
+env.ASSETS (livecanvas-builder-assets-local)               R2 Bucket        
+
+--dry-run: exiting now.
