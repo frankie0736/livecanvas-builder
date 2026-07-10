@@ -1,7 +1,7 @@
 "use client";
 
-import { login } from "@/app/actions";
-import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { type FormEvent, useState } from "react";
 
 interface LoginFormProps {
 	callbackUrl?: string;
@@ -14,9 +14,14 @@ export function LoginForm({
 }: LoginFormProps) {
 	const [isLoading, setIsLoading] = useState(false);
 
-	async function handleLogin(formData: FormData) {
+	async function handleLogin(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
 		setIsLoading(true);
-		await login("discord", { callbackUrl });
+		const { error } = await authClient.signIn.social({
+			provider: "discord",
+			callbackURL: callbackUrl,
+		});
+		if (error) setIsLoading(false);
 	}
 
 	return (
@@ -28,7 +33,7 @@ export function LoginForm({
 				</p>
 			</div>
 
-			<form action={handleLogin} className="space-y-4">
+			<form onSubmit={handleLogin} className="space-y-4">
 				<button
 					type="submit"
 					disabled={isLoading}

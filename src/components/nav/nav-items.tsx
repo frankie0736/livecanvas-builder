@@ -1,19 +1,20 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { GalleryHorizontal, Home, MessageSquare, Palette } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export function NavItems() {
-	const pathname = usePathname();
+	const pathname = useRouterState({
+		select: (state) => state.location.pathname,
+	});
 
 	const isActive = (path: string) => {
 		return pathname === path || pathname.startsWith(`${path}/`);
 	};
 	return (
 		<div className="hidden items-center space-x-1 md:flex">
-			<Link href="/">
+			<Link to="/dashboard">
 				<Button
 					variant={isActive("/dashboard") ? "default" : "ghost"}
 					className="flex items-center gap-2"
@@ -23,7 +24,7 @@ export function NavItems() {
 					<span>首页</span>
 				</Button>
 			</Link>
-			<Link href="/gallery">
+			<Link to="/gallery">
 				<Button
 					variant={isActive("/gallery") ? "default" : "ghost"}
 					className="flex items-center gap-2"
@@ -33,7 +34,7 @@ export function NavItems() {
 					<span>作品集</span>
 				</Button>
 			</Link>
-			<Link href="/wizard">
+			<Link to="/wizard">
 				<Button
 					variant={isActive("/wizard") ? "default" : "ghost"}
 					className="flex items-center gap-2"
@@ -43,7 +44,7 @@ export function NavItems() {
 					<span>调样式</span>
 				</Button>
 			</Link>
-			<Link href="/chat">
+			<Link to="/chat">
 				<Button
 					variant={isActive("/chat") ? "default" : "ghost"}
 					className="flex items-center gap-2"

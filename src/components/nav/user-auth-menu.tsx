@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -8,13 +8,12 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import type { authClient } from "@/lib/auth-client";
+import { Link } from "@tanstack/react-router";
 import { User } from "lucide-react";
-import type { Session } from "next-auth";
-import Image from "next/image";
-import Link from "next/link";
 
 interface UserAuthMenuProps {
-	session: Session | null;
+	session: typeof authClient.$Infer.Session | null;
 }
 
 export function UserAuthMenu({ session }: UserAuthMenuProps) {
@@ -25,13 +24,12 @@ export function UserAuthMenu({ session }: UserAuthMenuProps) {
 				className="relative h-9 w-9 rounded-full p-0"
 				asChild
 			>
-				<Link href="/profile">
+				<Link to="/profile">
 					<Avatar className="h-9 w-9">
 						{session.user.image ? (
-							<Image
+							<AvatarImage
 								src={session.user.image}
 								alt={session.user.name || "User"}
-								fill
 							/>
 						) : (
 							<AvatarFallback className="bg-primary text-primary-foreground">
@@ -62,11 +60,11 @@ export function UserAuthMenu({ session }: UserAuthMenuProps) {
 					</DialogDescription>
 				</DialogHeader>
 				<div className="flex flex-col gap-2 pt-4">
-					<Link href="/api/auth/signin" className="w-full">
+					<Link to="/signin" className="w-full">
 						登录
 					</Link>
-					<Link href="/api/auth/signup" className="w-full">
-						创建账户
+					<Link to="/signin" className="w-full">
+						使用 OAuth 创建账户
 					</Link>
 				</div>
 			</DialogContent>

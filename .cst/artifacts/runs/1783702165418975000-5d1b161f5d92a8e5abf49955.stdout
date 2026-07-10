@@ -1,0 +1,83 @@
+bun test v1.3.12 (700fc117)
+vite v8.1.4 building client environment for production...
+[2Ktransforming...✓ 177 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/client/.assetsignore                                               0.02 kB
+dist/client/assets/globals-Bx00nisp.css                                79.73 kB │ gzip:  13.77 kB
+dist/client/assets/_guest-bHlAIZuy.js                                   0.07 kB │ gzip:   0.08 kB
+dist/client/assets/_protected-bHlAIZuy.js                               0.07 kB │ gzip:   0.08 kB
+dist/client/assets/_protected.profile-bHlAIZuy.js                       0.07 kB │ gzip:   0.08 kB
+dist/client/assets/-placeholder-ZITL00Ml.js                             0.13 kB │ gzip:   0.13 kB
+dist/client/assets/_guest.index-MB8lS7sY.js                             0.14 kB │ gzip:   0.14 kB
+dist/client/assets/_protected.chat-BGcXo2iN.js                          0.15 kB │ gzip:   0.14 kB
+dist/client/assets/_guest.signin-Bnl8DAsp.js                            0.15 kB │ gzip:   0.15 kB
+dist/client/assets/_protected.wizard-B0warLI2.js                        0.15 kB │ gzip:   0.15 kB
+dist/client/assets/_protected.example-CNwKfExI.js                       0.15 kB │ gzip:   0.15 kB
+dist/client/assets/_protected.gallery-DMqG-ysJ.js                       0.15 kB │ gzip:   0.15 kB
+dist/client/assets/_protected.preview-bV1l_38R.js                       0.15 kB │ gzip:   0.15 kB
+dist/client/assets/_protected.profile.index-BfVT7RHw.js                 0.15 kB │ gzip:   0.15 kB
+dist/client/assets/_protected.signout-Bb6ETRSq.js                       0.15 kB │ gzip:   0.15 kB
+dist/client/assets/_protected.dashboard-DUd0bNPZ.js                     0.15 kB │ gzip:   0.15 kB
+dist/client/assets/privacy-policy-BT8RJa83.js                           0.16 kB │ gzip:   0.15 kB
+dist/client/assets/_protected.profile.api-keys-Bj7OIz69.js              0.16 kB │ gzip:   0.15 kB
+dist/client/assets/terms-of-service-CIqOlrcU.js                         0.16 kB │ gzip:   0.15 kB
+dist/client/assets/_protected.profile.my-projects-DJFixznZ.js           0.16 kB │ gzip:   0.15 kB
+dist/client/assets/_protected.profile.favorites-projects-C7kRF6eR.js    0.17 kB │ gzip:   0.16 kB
+dist/client/assets/index-DwsoSwhV.js                                  317.24 kB │ gzip: 101.15 kB
+
+✓ built in 328ms
+vite v8.1.4 building ssr environment for production...
+[2Ktransforming...✓ 1007 modules transformed.
+rendering chunks...
+Using secrets defined in .dev.vars
+computing gzip size...
+dist/server/wrangler.json                                                 1.66 kB │ gzip:   0.78 kB
+dist/server/.vite/manifest.json                                          14.91 kB │ gzip:   1.88 kB
+dist/server/assets/globals-Bx00nisp.css                                  79.73 kB │ gzip:  13.77 kB
+dist/server/assets/kysely-adapter-BkZUefjc.js                             0.13 kB │ gzip:   0.10 kB
+dist/server/assets/start-5Z2QO8AU.js                                      0.14 kB │ gzip:   0.13 kB
+dist/server/assets/_guest-CpStVy5u.js                                     0.18 kB │ gzip:   0.15 kB
+dist/server/assets/_protected-C_B3qoeH.js                                 0.18 kB │ gzip:   0.15 kB
+dist/server/assets/_protected.profile-CNo265EA.js                         0.19 kB │ gzip:   0.16 kB
+dist/server/assets/empty-plugin-adapters-D9UWiqvJ.js                      0.22 kB │ gzip:   0.16 kB
+dist/server/assets/-placeholder-DmOuabDl.js                               0.34 kB │ gzip:   0.23 kB
+dist/server/assets/_guest.index-C4yjhfAh.js                               0.41 kB │ gzip:   0.25 kB
+dist/server/assets/_guest.signin-6i0bbre0.js                              0.41 kB │ gzip:   0.25 kB
+dist/server/assets/_protected.chat-B0Bu6FZj.js                            0.41 kB │ gzip:   0.25 kB
+dist/server/assets/_protected.wizard-DDqRxSDm.js                          0.42 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.example-CLakj1M9.js                         0.42 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.gallery-baCuMwQH.js                         0.42 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.preview-B75xQdIo.js                         0.42 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.signout-Puls_s9l.js                         0.42 kB │ gzip:   0.26 kB
+dist/server/assets/privacy-policy-yjsEDBi9.js                             0.42 kB │ gzip:   0.25 kB
+dist/server/assets/_protected.dashboard-DhMwCbHQ.js                       0.42 kB │ gzip:   0.26 kB
+dist/server/assets/_protected.profile.index-BZEVwl94.js                   0.43 kB │ gzip:   0.26 kB
+dist/server/assets/terms-of-service-JVRjvoSo.js                           0.43 kB │ gzip:   0.25 kB
+dist/server/assets/_protected.profile.api-keys-C_5EWMsx.js                0.44 kB │ gzip:   0.27 kB
+dist/server/assets/_protected.profile.my-projects-B1T45vQY.js             0.44 kB │ gzip:   0.27 kB
+dist/server/assets/_protected.profile.favorites-projects-B388DuQa.js      0.46 kB │ gzip:   0.27 kB
+dist/server/index.js                                                      0.85 kB │ gzip:   0.43 kB
+dist/server/assets/kysely-migration-tables-JkVUjPF_-D0gtDzmR.js           0.97 kB │ gzip:   0.54 kB
+dist/server/assets/route-session-Bx7npALi.js                              1.08 kB │ gzip:   0.57 kB
+dist/server/assets/rolldown-runtime-B-1-B7_t.js                           1.40 kB │ gzip:   0.66 kB
+dist/server/assets/jsx-runtime-opAwA2KJ.js                                1.41 kB │ gzip:   0.65 kB
+dist/server/assets/sqlite-adapter-BvgA9teJ.js                             2.12 kB │ gzip:   0.82 kB
+dist/server/assets/redirect-SIDaGvS3.js                                   2.27 kB │ gzip:   0.95 kB
+dist/server/assets/d1-sqlite-dialect-BLC8LXE6-jJ3WvI_z.js                 3.93 kB │ gzip:   1.46 kB
+dist/server/assets/bun-sqlite-dialect-BW9W1_Ps-TQTDt11V.js                4.61 kB │ gzip:   1.63 kB
+dist/server/assets/node-sqlite-dialect-BAEYOtcm.js                        4.61 kB │ gzip:   1.62 kB
+dist/server/assets/_tanstack-start-manifest_v-KknyVjZ8.js                 4.98 kB │ gzip:   0.90 kB
+dist/server/assets/createServerFn-BhXNZl1x.js                            11.87 kB │ gzip:   3.57 kB
+dist/server/assets/dist-B1t0gdo8.js                                      14.56 kB │ gzip:   4.07 kB
+dist/server/assets/__23tanstack-start-server-fn-resolver-AC4idx8I.js     18.81 kB │ gzip:   5.13 kB
+dist/server/assets/default-query-compiler-QtMnlyRl.js                    44.90 kB │ gzip:   7.91 kB
+dist/server/assets/router-CSfuOIms.js                                    54.13 kB │ gzip:  12.85 kB
+dist/server/assets/factory-Bo-knpaf.js                                   74.61 kB │ gzip:  17.06 kB
+dist/server/assets/Match-B4T-nrwQ.js                                    168.42 kB │ gzip:  41.07 kB
+dist/server/assets/dist-BZVxGMwh.js                                     204.26 kB │ gzip:  35.10 kB
+dist/server/assets/compiled-query-B-M8LYfq.js                           235.56 kB │ gzip:  39.25 kB
+dist/server/assets/server-CAalJaMR.js                                   571.01 kB │ gzip: 123.62 kB
+dist/server/assets/auth-CeNXhYUT.js                                   1,172.85 kB │ gzip: 249.79 kB
+
+✓ built in 369ms

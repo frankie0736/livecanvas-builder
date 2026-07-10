@@ -1,10 +1,24 @@
-import NextAuth from "next-auth";
-import { cache } from "react";
+import { env } from "cloudflare:workers";
 
-import { authConfig } from "./config";
+import { createAuth } from "./config";
 
-const { auth: uncachedAuth, handlers, signIn, signOut } = NextAuth(authConfig);
+export const auth = createAuth(env);
 
-const auth = cache(uncachedAuth);
+export type AuthSession = typeof auth.$Infer.Session;
 
-export { auth, handlers, signIn, signOut };
+export async function getSession(headers: Headers) {
+	return auth.api.getSession({ headers });
+}
+
+export async function requireSession(headers: Headers) {
+	const session = await getSession(headers);
+	if (!session) throw new UnauthorizedError();
+	return session;
+}
+
+export class UnauthorizedError extends Error {
+	constructor() {
+		super("Unauthorized");
+		this.name = "UnauthorizedError";
+	}
+}

@@ -1,74 +1,57 @@
-import { env } from "@/env";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import type { DefaultSession, NextAuthConfig } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
-import GoogleProvider from "next-auth/providers/google";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { tanstackStartCookies } from "better-auth/tanstack-start";
+import { z } from "zod";
 
-import { db } from "@/server/db";
-import { account, session, user } from "@/server/db/schema";
+import { createDatabase } from "@/server/db";
+import * as schema from "@/server/db/schema";
 
-/**
- * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
- * object and keep type safety.
- *
- * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
- */
-declare module "next-auth" {
-	interface Session extends DefaultSession {
+const authBindingsSchema = z.object({
+	AUTH_SECRET: z.string().min(32),
+	AUTH_GOOGLE_ID: z.string().min(1),
+	AUTH_GOOGLE_SECRET: z.string().min(1),
+	AUTH_DISCORD_ID: z.string().min(1),
+	AUTH_DISCORD_SECRET: z.string().min(1),
+	AUTH_BASE_URL: z.string().url().optional(),
+	DB: z.custom<D1Database>(
+		(value) => typeof value === "object" && value !== null,
+		"DB must be a D1 binding",
+	),
+});
+
+export type AuthBindings = z.infer<typeof authBindingsSchema>;
+
+export function createAuth(input: unknown) {
+	const bindings = authBindingsSchema.parse(input);
+
+	return betterAuth({
+		...(bindings.AUTH_BASE_URL ? { baseURL: bindings.AUTH_BASE_URL } : {}),
+		secret: bindings.AUTH_SECRET,
+		database: drizzleAdapter(createDatabase(bindings.DB), {
+			provider: "sqlite",
+			schema,
+		}),
+		socialProviders: {
+			google: {
+				clientId: bindings.AUTH_GOOGLE_ID,
+				clientSecret: bindings.AUTH_GOOGLE_SECRET,
+				accessType: "offline",
+			},
+			discord: {
+				clientId: bindings.AUTH_DISCORD_ID,
+				clientSecret: bindings.AUTH_DISCORD_SECRET,
+				prompt: "consent",
+			},
+		},
 		user: {
-			id: string;
-			backgroundInfo: string;
-			name: string;
-			email: string;
-			image: string;
-		} & DefaultSession["user"];
-	}
-
-	// interface User {
-	//   // ...other properties
-	//   // role: UserRole;
-	// }
-}
-
-/**
- * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
- *
- * @see https://next-auth.js.org/configuration/options
- */
-export const authConfig = {
-	providers: [
-		DiscordProvider,
-		GoogleProvider({
-			authorization: {
-				params: {
-					prompt: "consent",
-					access_type: "offline",
-					response_type: "code",
+			additionalFields: {
+				backgroundInfo: {
+					type: "string",
+					required: false,
+					input: false,
 				},
 			},
-		}),
-		/**
-		 * ...add more providers here.
-		 *
-		 * Most other providers require a bit more work than the Discord provider. For example, the
-		 * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-		 * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-		 *
-		 * @see https://next-auth.js.org/providers/github
-		 */
-	],
-	adapter: DrizzleAdapter(db, {
-		usersTable: user,
-		accountsTable: account,
-		sessionsTable: session,
-	}),
-	callbacks: {
-		session: ({ session, user }) => ({
-			...session,
-			user: {
-				...session.user,
-				id: user.id,
-			},
-		}),
-	},
-} satisfies NextAuthConfig;
+		},
+		plugins: [tanstackStartCookies()],
+	});
+}

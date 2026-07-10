@@ -1,8 +1,8 @@
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 
 export function Logo() {
 	return (
-		<Link href="/" className="font-bold text-lg">
+		<Link to="/" className="font-bold text-lg">
 			LiveCanvas Builder
 		</Link>
 	);

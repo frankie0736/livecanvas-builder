@@ -1,10 +1,6 @@
-export const PUBLIC_ROUTES = [
-	"/",
-	"/signin",
-	"/signout",
-	"/terms-of-service",
-	"/privacy-policy",
-] as const;
+export const GUEST_ROUTES = ["/", "/signin"] as const;
+
+export const PUBLIC_ROUTES = ["/terms-of-service", "/privacy-policy"] as const;
 
 export const PROTECTED_ROUTES = [
 	"/chat",
@@ -16,6 +12,7 @@ export const PROTECTED_ROUTES = [
 	"/profile/api-keys",
 	"/profile/favorites-projects",
 	"/profile/my-projects",
+	"/signout",
 	"/wizard",
 ] as const;
 
@@ -30,6 +27,7 @@ export const API_ROUTES = [
 ] as const;
 
 export const APP_ROUTES = [
+	...GUEST_ROUTES,
 	...PUBLIC_ROUTES,
 	...PROTECTED_ROUTES,
 	...API_ROUTES,

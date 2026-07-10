@@ -10,20 +10,21 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
-import { Route as SignoutRouteImport } from './routes/signout'
-import { Route as SigninRouteImport } from './routes/signin'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProtectedRouteImport } from './routes/_protected'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as GuestRouteImport } from './routes/_guest'
+import { Route as GuestIndexRouteImport } from './routes/_guest.index'
 import { Route as ApiMetadataRouteImport } from './routes/api.metadata'
 import { Route as ApiChatRouteImport } from './routes/api.chat'
 import { Route as ProtectedWizardRouteImport } from './routes/_protected.wizard'
+import { Route as ProtectedSignoutRouteImport } from './routes/_protected.signout'
 import { Route as ProtectedProfileRouteImport } from './routes/_protected.profile'
 import { Route as ProtectedPreviewRouteImport } from './routes/_protected.preview'
 import { Route as ProtectedGalleryRouteImport } from './routes/_protected.gallery'
 import { Route as ProtectedExampleRouteImport } from './routes/_protected.example'
 import { Route as ProtectedDashboardRouteImport } from './routes/_protected.dashboard'
 import { Route as ProtectedChatRouteImport } from './routes/_protected.chat'
+import { Route as GuestSigninRouteImport } from './routes/_guest.signin'
 import { Route as ProtectedProfileIndexRouteImport } from './routes/_protected.profile.index'
 import { Route as ApiTaskSubmitRouteImport } from './routes/api.task.submit'
 import { Route as ApiTaskStatusRouteImport } from './routes/api.task.status'
@@ -39,16 +40,6 @@ const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SignoutRoute = SignoutRouteImport.update({
-  id: '/signout',
-  path: '/signout',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SigninRoute = SigninRouteImport.update({
-  id: '/signin',
-  path: '/signin',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
@@ -58,10 +49,14 @@ const ProtectedRoute = ProtectedRouteImport.update({
   id: '/_protected',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const GuestRoute = GuestRouteImport.update({
+  id: '/_guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuestIndexRoute = GuestIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => GuestRoute,
 } as any)
 const ApiMetadataRoute = ApiMetadataRouteImport.update({
   id: '/api/metadata',
@@ -76,6 +71,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
 const ProtectedWizardRoute = ProtectedWizardRouteImport.update({
   id: '/wizard',
   path: '/wizard',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+const ProtectedSignoutRoute = ProtectedSignoutRouteImport.update({
+  id: '/signout',
+  path: '/signout',
   getParentRoute: () => ProtectedRoute,
 } as any)
 const ProtectedProfileRoute = ProtectedProfileRouteImport.update({
@@ -107,6 +107,11 @@ const ProtectedChatRoute = ProtectedChatRouteImport.update({
   id: '/chat',
   path: '/chat',
   getParentRoute: () => ProtectedRoute,
+} as any)
+const GuestSigninRoute = GuestSigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => GuestRoute,
 } as any)
 const ProtectedProfileIndexRoute = ProtectedProfileIndexRouteImport.update({
   id: '/',
@@ -157,17 +162,17 @@ const ProtectedProfileApiKeysRoute = ProtectedProfileApiKeysRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof GuestIndexRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/signin': typeof SigninRoute
-  '/signout': typeof SignoutRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/signin': typeof GuestSigninRoute
   '/chat': typeof ProtectedChatRoute
   '/dashboard': typeof ProtectedDashboardRoute
   '/example': typeof ProtectedExampleRoute
   '/gallery': typeof ProtectedGalleryRoute
   '/preview': typeof ProtectedPreviewRoute
   '/profile': typeof ProtectedProfileRouteWithChildren
+  '/signout': typeof ProtectedSignoutRoute
   '/wizard': typeof ProtectedWizardRoute
   '/api/chat': typeof ApiChatRoute
   '/api/metadata': typeof ApiMetadataRoute
@@ -182,16 +187,16 @@ export interface FileRoutesByFullPath {
   '/profile/': typeof ProtectedProfileIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof GuestIndexRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/signin': typeof SigninRoute
-  '/signout': typeof SignoutRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/signin': typeof GuestSigninRoute
   '/chat': typeof ProtectedChatRoute
   '/dashboard': typeof ProtectedDashboardRoute
   '/example': typeof ProtectedExampleRoute
   '/gallery': typeof ProtectedGalleryRoute
   '/preview': typeof ProtectedPreviewRoute
+  '/signout': typeof ProtectedSignoutRoute
   '/wizard': typeof ProtectedWizardRoute
   '/api/chat': typeof ApiChatRoute
   '/api/metadata': typeof ApiMetadataRoute
@@ -207,21 +212,22 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_guest': typeof GuestRouteWithChildren
   '/_protected': typeof ProtectedRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/signin': typeof SigninRoute
-  '/signout': typeof SignoutRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/_guest/signin': typeof GuestSigninRoute
   '/_protected/chat': typeof ProtectedChatRoute
   '/_protected/dashboard': typeof ProtectedDashboardRoute
   '/_protected/example': typeof ProtectedExampleRoute
   '/_protected/gallery': typeof ProtectedGalleryRoute
   '/_protected/preview': typeof ProtectedPreviewRoute
   '/_protected/profile': typeof ProtectedProfileRouteWithChildren
+  '/_protected/signout': typeof ProtectedSignoutRoute
   '/_protected/wizard': typeof ProtectedWizardRoute
   '/api/chat': typeof ApiChatRoute
   '/api/metadata': typeof ApiMetadataRoute
+  '/_guest/': typeof GuestIndexRoute
   '/_protected/profile/api-keys': typeof ProtectedProfileApiKeysRoute
   '/_protected/profile/favorites-projects': typeof ProtectedProfileFavoritesProjectsRoute
   '/_protected/profile/my-projects': typeof ProtectedProfileMyProjectsRoute
@@ -237,15 +243,15 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/privacy-policy'
-    | '/signin'
-    | '/signout'
     | '/terms-of-service'
+    | '/signin'
     | '/chat'
     | '/dashboard'
     | '/example'
     | '/gallery'
     | '/preview'
     | '/profile'
+    | '/signout'
     | '/wizard'
     | '/api/chat'
     | '/api/metadata'
@@ -262,14 +268,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/privacy-policy'
-    | '/signin'
-    | '/signout'
     | '/terms-of-service'
+    | '/signin'
     | '/chat'
     | '/dashboard'
     | '/example'
     | '/gallery'
     | '/preview'
+    | '/signout'
     | '/wizard'
     | '/api/chat'
     | '/api/metadata'
@@ -284,21 +290,22 @@ export interface FileRouteTypes {
     | '/profile'
   id:
     | '__root__'
-    | '/'
+    | '/_guest'
     | '/_protected'
     | '/privacy-policy'
-    | '/signin'
-    | '/signout'
     | '/terms-of-service'
+    | '/_guest/signin'
     | '/_protected/chat'
     | '/_protected/dashboard'
     | '/_protected/example'
     | '/_protected/gallery'
     | '/_protected/preview'
     | '/_protected/profile'
+    | '/_protected/signout'
     | '/_protected/wizard'
     | '/api/chat'
     | '/api/metadata'
+    | '/_guest/'
     | '/_protected/profile/api-keys'
     | '/_protected/profile/favorites-projects'
     | '/_protected/profile/my-projects'
@@ -311,11 +318,9 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  GuestRoute: typeof GuestRouteWithChildren
   ProtectedRoute: typeof ProtectedRouteWithChildren
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
-  SigninRoute: typeof SigninRoute
-  SignoutRoute: typeof SignoutRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiMetadataRoute: typeof ApiMetadataRoute
@@ -335,20 +340,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signout': {
-      id: '/signout'
-      path: '/signout'
-      fullPath: '/signout'
-      preLoaderRoute: typeof SignoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/signin': {
-      id: '/signin'
-      path: '/signin'
-      fullPath: '/signin'
-      preLoaderRoute: typeof SigninRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
@@ -363,12 +354,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_guest': {
+      id: '/_guest'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof GuestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_guest/': {
+      id: '/_guest/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof GuestIndexRouteImport
+      parentRoute: typeof GuestRoute
     }
     '/api/metadata': {
       id: '/api/metadata'
@@ -389,6 +387,13 @@ declare module '@tanstack/react-router' {
       path: '/wizard'
       fullPath: '/wizard'
       preLoaderRoute: typeof ProtectedWizardRouteImport
+      parentRoute: typeof ProtectedRoute
+    }
+    '/_protected/signout': {
+      id: '/_protected/signout'
+      path: '/signout'
+      fullPath: '/signout'
+      preLoaderRoute: typeof ProtectedSignoutRouteImport
       parentRoute: typeof ProtectedRoute
     }
     '/_protected/profile': {
@@ -432,6 +437,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/chat'
       preLoaderRoute: typeof ProtectedChatRouteImport
       parentRoute: typeof ProtectedRoute
+    }
+    '/_guest/signin': {
+      id: '/_guest/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof GuestSigninRouteImport
+      parentRoute: typeof GuestRoute
     }
     '/_protected/profile/': {
       id: '/_protected/profile/'
@@ -499,6 +511,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface GuestRouteChildren {
+  GuestSigninRoute: typeof GuestSigninRoute
+  GuestIndexRoute: typeof GuestIndexRoute
+}
+
+const GuestRouteChildren: GuestRouteChildren = {
+  GuestSigninRoute: GuestSigninRoute,
+  GuestIndexRoute: GuestIndexRoute,
+}
+
+const GuestRouteWithChildren = GuestRoute._addFileChildren(GuestRouteChildren)
+
 interface ProtectedProfileRouteChildren {
   ProtectedProfileApiKeysRoute: typeof ProtectedProfileApiKeysRoute
   ProtectedProfileFavoritesProjectsRoute: typeof ProtectedProfileFavoritesProjectsRoute
@@ -524,6 +548,7 @@ interface ProtectedRouteChildren {
   ProtectedGalleryRoute: typeof ProtectedGalleryRoute
   ProtectedPreviewRoute: typeof ProtectedPreviewRoute
   ProtectedProfileRoute: typeof ProtectedProfileRouteWithChildren
+  ProtectedSignoutRoute: typeof ProtectedSignoutRoute
   ProtectedWizardRoute: typeof ProtectedWizardRoute
 }
 
@@ -534,6 +559,7 @@ const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedGalleryRoute: ProtectedGalleryRoute,
   ProtectedPreviewRoute: ProtectedPreviewRoute,
   ProtectedProfileRoute: ProtectedProfileRouteWithChildren,
+  ProtectedSignoutRoute: ProtectedSignoutRoute,
   ProtectedWizardRoute: ProtectedWizardRoute,
 }
 
@@ -542,11 +568,9 @@ const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  GuestRoute: GuestRouteWithChildren,
   ProtectedRoute: ProtectedRouteWithChildren,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
-  SigninRoute: SigninRoute,
-  SignoutRoute: SignoutRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   ApiChatRoute: ApiChatRoute,
   ApiMetadataRoute: ApiMetadataRoute,

@@ -34,14 +34,12 @@
 		"vite.config.ts",
 		"src/router.tsx",
 		"src/routeTree.gen.ts",
+		"src/components/login-form.tsx",
+		"src/components/nav/**/*.tsx",
+		"src/lib/auth-client.ts",
 		"src/routes/**/*.ts",
-		"src/routes/**/*.tsx"
-	],
-	"exclude": [
-		"node_modules",
-		"dist",
-		".wrangler",
-		".tanstack",
+		"src/routes/**/*.tsx",
 		"worker-configuration.d.ts"
-	]
+	],
+	"exclude": ["node_modules", "dist", ".wrangler", ".tanstack"]
 }

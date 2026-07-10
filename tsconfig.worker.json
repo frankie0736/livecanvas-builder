@@ -5,6 +5,7 @@
 	},
 	"include": [
 		"src/server.ts",
+		"src/server/auth/**/*.ts",
 		"src/server/db/**/*.ts",
 		"src/server/repositories/**/*.ts",
 		"worker-configuration.d.ts"
