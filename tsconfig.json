@@ -20,9 +20,8 @@
 		"noEmit": true,
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
-		"jsx": "preserve",
-		"plugins": [{ "name": "next" }],
-		"incremental": true,
+		"jsx": "react-jsx",
+		"types": ["vite/client"],
 
 		/* Path Aliases */
 		"baseUrl": ".",
@@ -30,15 +29,13 @@
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": [
-		".eslintrc.cjs",
-		"next-env.d.ts",
-		"**/*.ts",
-		"**/*.tsx",
-		"**/*.cjs",
-		"**/*.js",
-		".next/types/**/*.ts",
-		"trigger.config.ts"
-	],
-	"exclude": ["node_modules"]
+	"include": ["**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.js"],
+	"exclude": [
+		"node_modules",
+		"dist",
+		".wrangler",
+		".tanstack",
+		"src/server.ts",
+		"worker-configuration.d.ts"
+	]
 }

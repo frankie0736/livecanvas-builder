@@ -1,0 +1,30 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "livecanvas-builder-local",
+	"main": "src/server.ts",
+	"compatibility_date": "2026-07-10",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"enabled": true
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "livecanvas-builder-local",
+			"database_id": "00000000-0000-0000-0000-000000000000"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "ASSETS",
+			"bucket_name": "livecanvas-builder-assets-local"
+		}
+	],
+	"workflows": [
+		{
+			"binding": "CHAT_GENERATION",
+			"name": "livecanvas-builder-chat-local",
+			"class_name": "ChatGenerationWorkflow"
+		}
+	]
+}

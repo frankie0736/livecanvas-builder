@@ -1,0 +1,4 @@
+.env.prod
+.migration/private/probe
+.wrangler/probe
+.cst/events.lock
