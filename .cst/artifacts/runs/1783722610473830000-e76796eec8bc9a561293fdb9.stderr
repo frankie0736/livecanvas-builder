@@ -1,0 +1,210 @@
+
+tests/e2e/public.spec.ts:
+
+# Unhandled error between tests
+-------------------------------
+2252 |     this.test = test;
+2253 |   }
+2254 |   _currentSuite(location, title) {
+2255 |     const suite = (0, import_globals2.currentlyLoadingFileSuite)();
+2256 |     if (!suite) {
+2257 |       throw new Error([
+                       ^
+error: Playwright Test did not expect test() to be called here.
+Most common reasons include:
+- You are calling test() in a configuration file.
+- You are calling test() in a file that is imported by the configuration file.
+- You have two different versions of @playwright/test. This usually happens
+  when one of the dependencies in your package.json depends on @playwright/test.
+- You are calling test() from an async test.describe() block. Only sync ones are supported.
+      at _currentSuite (/Users/fx/yansircc/livecanvas-builder/node_modules/playwright/lib/common/index.js:2257:17)
+      at _createTest (/Users/fx/yansircc/livecanvas-builder/node_modules/playwright/lib/common/index.js:2271:24)
+      at /Users/fx/yansircc/livecanvas-builder/tests/e2e/public.spec.ts:4:1
+      at loadAndEvaluateModule (2:1)
+-------------------------------
+
+
+tests/e2e/authenticated.spec.ts:
+
+# Unhandled error between tests
+-------------------------------
+2252 |     this.test = test;
+2253 |   }
+2254 |   _currentSuite(location, title) {
+2255 |     const suite = (0, import_globals2.currentlyLoadingFileSuite)();
+2256 |     if (!suite) {
+2257 |       throw new Error([
+                       ^
+error: Playwright Test did not expect test() to be called here.
+Most common reasons include:
+- You are calling test() in a configuration file.
+- You are calling test() in a file that is imported by the configuration file.
+- You have two different versions of @playwright/test. This usually happens
+  when one of the dependencies in your package.json depends on @playwright/test.
+- You are calling test() from an async test.describe() block. Only sync ones are supported.
+      at _currentSuite (/Users/fx/yansircc/livecanvas-builder/node_modules/playwright/lib/common/index.js:2257:17)
+      at _createTest (/Users/fx/yansircc/livecanvas-builder/node_modules/playwright/lib/common/index.js:2271:24)
+      at /Users/fx/yansircc/livecanvas-builder/tests/e2e/authenticated.spec.ts:4:1
+      at loadAndEvaluateModule (2:1)
+-------------------------------
+
+
+src/utils/__test__/json-parser.test.ts:
+(pass) Refactored JSON Parser Tests > should handle unescaped newlines in string literals [0.44ms]
+(pass) Refactored JSON Parser Tests > should handle complex HTML with attributes and nested structure [0.18ms]
+(pass) Refactored JSON Parser Tests > should handle malformed JSON with mixed quote styles and missing commas [0.36ms]
+(pass) Refactored JSON Parser Tests > should extract JSON from markdown with surrounding text [0.31ms]
+(pass) Refactored JSON Parser Tests > should recover from extremely malformed JSON [0.13ms]
+(pass) Refactored JSON Parser Tests > should handle JSON with Unicode characters and emojis [0.14ms]
+(pass) Refactored JSON Parser Tests > should handle deeply nested JSON structures [0.05ms]
+(pass) Refactored JSON Parser Tests > should handle JSON with JavaScript code snippets inside [0.05ms]
+(pass) Refactored JSON Parser Tests > should extract partial JSON when complete parsing fails [0.08ms]
+(pass) Refactored JSON Parser Tests > should extract HTML as last resort when JSON parsing fails completely [0.05ms]
+
+src/utils/__test__/get-icon-svg.test.ts:
+(pass) getIconSvg > should return the correct SVG for an icon without prefix [6.82ms]
+(pass) getIconSvg > should return the correct SVG for an icon with lucide prefix [0.38ms]
+(pass) getIconSvg > should handle fuzzy matching for icons with typos [4.04ms]
+(pass) getIconSvg > should handle case insensitivity [0.93ms]
+No matching icon found for: 
+(pass) getIconSvg > should return null if no icon is found [0.27ms]
+No matching icon found for: 
+No matching icon found for: a
+(pass) getIconSvg > should handle edge cases [2.96ms]
+(pass) getIconSvg > should work with various common icons [2.70ms]
+(pass) getIconSvg > should correctly match similar icon names [0.75ms]
+
+src/utils/__test__/replace-with-lucide-icon.test.ts:
+(pass) replaceLucideIcons > should replace simple lucide icon [0.44ms]
+(pass) replaceLucideIcons > should preserve other classes [0.04ms]
+(pass) replaceLucideIcons > should preserve other attributes [0.03ms]
+(pass) replaceLucideIcons > should handle escaped quotes [0.05ms]
+(pass) replaceLucideIcons > should handle multiple icons [0.05ms]
+(pass) replaceLucideIcons > should handle non-lucide icons [0.02ms]
+(pass) replaceLucideIcons > should handle empty input [0.01ms]
+(pass) replaceLucideIcons > should handle invalid lucide icon [0.03ms]
+(pass) replaceLucideIcons > should handle complex HTML structure [0.04ms]
+(pass) replaceLucideIcons > should handle multiple classes and attributes [0.03ms]
+
+src/migration/__tests__/transform.test.ts:
+(pass) snapshot source URL > uses the direct Neon endpoint for snapshot reads
+(pass) PostgreSQL to D1 transformation > maps auth, time, boolean, null, and preserved counters deterministically [1.79ms]
+(pass) PostgreSQL to D1 transformation > imports special text through valid SQLite literals [2.62ms]
+
+src/migration/__tests__/media.test.ts:
+(pass) media migration algebra > maps owned URLs to deterministic non-overlapping R2 keys [0.23ms]
+(pass) media migration algebra > deduplicates owned database references and leaves providers external [0.11ms]
+(pass) media migration algebra > uses one key generator and one MIME mapping for new media [0.06ms]
+
+src/routes/__tests__/route-manifest.test.ts:
+(pass) TanStack Start migration manifest > preserves every existing page and API path [3.94ms]
+(pass) TanStack Start migration manifest > places authenticated pages under one pathless layout [0.09ms]
+(pass) TanStack Start migration manifest > uses only the local Cloudflare binding contract [0.36ms]
+
+src/routes/__tests__/authorization.test.ts:
+(pass) route authorization policy > redirects anonymous users away from protected routes [0.89ms]
+(pass) route authorization policy > redirects authenticated users away from guest entry routes [0.04ms]
+(pass) route authorization policy > allows the matching session state and always-public routes [0.02ms]
+(pass) route authorization policy > derives project ownership from the session user id [151.07ms]
+
+src/server/tasks/__tests__/http.test.ts:
+(pass) task HTTP contract > preserves submit, poll, and cancel wire responses with no-store [0.56ms]
+(pass) task HTTP contract > rejects anonymous submit before reading the body [0.18ms]
+
+src/server/tasks/__tests__/service.test.ts:
+(pass) generation task service > validates from the catalog and sends only encrypted BYOK params [118.28ms]
+
+src/server/tasks/__tests__/state-machine.test.ts:
+(pass) generation task state machine > expresses valid transitions without terminal escape paths [0.06ms]
+
+src/server/tasks/__tests__/encryption.test.ts:
+(pass) task payload encryption > round trips with task-bound AES-GCM and redacts logs [0.48ms]
+
+src/server/tasks/__tests__/repository.test.ts:
+(pass) generation task repository > lets exactly one terminal transition win and enforces owner reads [128.43ms]
+(pass) generation task repository > stores completed output and usage in separate canonical fields [120.08ms]
+
+src/server/tasks/__tests__/aihubmix.test.ts:
+(pass) AIHubMix generation boundary > uses BYOK and maps OpenAI-compatible usage without logging the key [0.33ms]
+
+src/server/tasks/__tests__/local-e2e.test.ts:
+(pass) local generation task loop > completes encrypted BYOK generation into D1 [121.68ms]
+{
+  event: "generation_workflow_failed",
+  task_id: "failed-task",
+  error: "upstream failed",
+}
+(pass) local generation task loop > records generation failure as a terminal D1 state [122.14ms]
+(pass) local generation task loop > does not execute a task canceled before Workflow start [124.39ms]
+
+src/server/auth/__tests__/auth.test.ts:
+(pass) Better Auth D1 boundary > configures only the existing Google and Discord providers [113.30ms]
+(pass) Better Auth D1 boundary > returns no session without a signed cookie [120.57ms]
+(pass) Better Auth D1 boundary > loads the signed session and additional user fields from D1 [146.32ms]
+
+src/server/repositories/__tests__/user-repository.test.ts:
+(pass) user repository > maps and updates profile fields by the authenticated user id [121.78ms]
+
+src/server/repositories/__tests__/project-repository.test.ts:
+(pass) project repository > keeps public, owned, and favorite query boundaries distinct [128.21ms]
+(pass) project repository > keeps purchase rows unique and count mutation atomic [191.28ms]
+(pass) project repository > keeps favorite rows unique under repeated concurrent toggles [183.39ms]
+(pass) project repository > owns project writes and derives published tags from D1 [142.95ms]
+
+src/server/storage/__tests__/r2-media-storage.test.ts:
+(pass) R2 media storage > writes one generated key and returns its public URL [0.19ms]
+(pass) R2 media storage > replaces media only after the new object is written [0.21ms]
+
+src/server/db/__tests__/schema.test.ts:
+(pass) D1 schema > creates the Better Auth and application tables [109.65ms]
+(pass) D1 schema > enforces foreign keys, cascade, and one user relation per project [129.03ms]
+(pass) D1 schema > stores booleans and timestamps deterministically [126.89ms]
+71414 |   async updateConfig(configBuffer, options, workerNames, abortSignal) {
+71415 |     await this.dispose();
+71416 |     const command = getRuntimeCommand();
+71417 |     const args = getRuntimeArgs(options);
+71418 |     const FORCE_COLOR2 = $.enabled ? "1" : "0";
+71419 |     const runtimeProcess = import_node_child_process2.default.spawn(command, args, {
+                                                                      ^
+error: Failed to connect
+ syscall: "connect",
+   errno: -2,
+    code: "ENOENT"
+
+      at connect (node:net:514:16)
+      at #createStdioObject (node:child_process:622:42)
+      at get (node:child_process:819:68)
+      at spawn (node:child_process:701:30)
+      at spawn (node:child_process:14:39)
+      at updateConfig (/Users/fx/yansircc/livecanvas-builder/node_modules/miniflare/dist/src/index.js:71419:63)
+      at async #assembleAndUpdateConfig (/Users/fx/yansircc/livecanvas-builder/node_modules/miniflare/dist/src/index.js:91513:50)
+      at async runWith (/Users/fx/yansircc/livecanvas-builder/node_modules/miniflare/dist/src/index.js:59727:54)
+(fail) D1 schema > rejects generation task states with inconsistent terminal data [9.41ms]
+
+src/lib/aihubmix/__tests__/catalog.test.ts:
+(pass) AIHubMix model catalog > normalizes LLM rows, display names, modalities, and prices
+(pass) AIHubMix model catalog > selects recent official GPT generations and latest Claude families [2.12ms]
+(pass) AIHubMix model catalog > uses all featured models as recommendations [0.13ms]
+(pass) AIHubMix model catalog > fetches with only the caller key and no cache [0.28ms]
+(pass) AIHubMix model catalog > fails closed for empty or unmatched catalogs [0.04ms]
+
+src/lib/aihubmix/__tests__/route.test.ts:
+(pass) AIHubMix model route > forwards caller authorization and returns no-store catalog [0.19ms]
+(pass) AIHubMix model route > never logs the caller key on upstream errors [0.28ms]
+
+src/features/dashboard/model-catalog/__tests__/catalog-client.test.ts:
+(pass) model catalog client > uses BYOK authorization and disables browser caching [0.07ms]
+
+src/features/dashboard/model-catalog/__tests__/catalog-state.test.ts:
+(pass) model catalog state > keeps a valid selection and repairs an invalid selection from recommendations
+(pass) model catalog state > searches the same normalized fields displayed by the selector [0.28ms]
+(pass) model catalog state > derives cost and both submit triggers from the catalog selection [0.04ms]
+
+3 tests failed:
+(fail) D1 schema > rejects generation task states with inconsistent terminal data [9.41ms]
+
+ 76 pass
+ 3 fail
+ 2 errors
+ 217 expect() calls
+Ran 79 tests across 25 files. [3.22s]

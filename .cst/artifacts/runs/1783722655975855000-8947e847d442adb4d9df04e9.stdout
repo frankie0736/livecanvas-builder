@@ -1,0 +1,420 @@
+bun test v1.3.12 (700fc117)
+Direct JSON parsing failed, attempting advanced extraction...
+Direct JSON parsing failed, attempting advanced extraction...
+Direct JSON parsing failed, attempting advanced extraction...
+Preprocessed input parsing failed, continuing with tokenization
+Balanced JSON extraction failed, continuing with partial extraction
+Direct JSON parsing failed, attempting advanced extraction...
+Direct JSON parsing failed, attempting advanced extraction...
+Preprocessed input parsing failed, continuing with tokenization
+Direct JSON parsing failed, attempting advanced extraction...
+Direct JSON parsing failed, attempting advanced extraction...
+Direct JSON parsing failed, attempting advanced extraction...
+Direct JSON parsing failed, attempting advanced extraction...
+Preprocessed input parsing failed, continuing with tokenization
+Direct JSON parsing failed, attempting advanced extraction...
+Preprocessed input parsing failed, continuing with tokenization
+Checked 261 files in 55ms. No fixes applied.
+vite v8.1.4 building client environment for production...
+[2Ktransforming...✓ 2437 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/client/.assetsignore                                               0.02 kB
+dist/client/assets/globals-BTD4cdSB.css                                77.34 kB │ gzip:  13.60 kB
+dist/client/assets/root-DLTE-HSj.js                                     0.03 kB │ gzip:   0.05 kB
+dist/client/assets/_guest-ChXBXC6m.js                                   0.07 kB │ gzip:   0.08 kB
+dist/client/assets/_protected-ChXBXC6m.js                               0.07 kB │ gzip:   0.08 kB
+dist/client/assets/check-BNdNqi-9.js                                    0.11 kB │ gzip:   0.12 kB
+dist/client/assets/loader-circle-DcS-5tZ-.js                            0.13 kB │ gzip:   0.14 kB
+dist/client/assets/useRouter-oKr96T_n.js                                0.15 kB │ gzip:   0.14 kB
+dist/client/assets/code-D33w8NqA.js                                     0.17 kB │ gzip:   0.15 kB
+dist/client/assets/user-BjDmfHwg.js                                     0.18 kB │ gzip:   0.17 kB
+dist/client/assets/copy-Do3l-7C5.js                                     0.22 kB │ gzip:   0.19 kB
+dist/client/assets/useNavigate-Bz0nBUpV.js                              0.22 kB │ gzip:   0.19 kB
+dist/client/assets/eye-d3gTMKXu.js                                      0.24 kB │ gzip:   0.19 kB
+dist/client/assets/upload-CuArvhGf.js                                   0.24 kB │ gzip:   0.20 kB
+dist/client/assets/download-JOoVmQVT.js                                 0.25 kB │ gzip:   0.21 kB
+dist/client/assets/search-C9mEdL4R.js                                   0.33 kB │ gzip:   0.21 kB
+dist/client/assets/use-apikey-store-kfMWoBLW.js                         0.38 kB │ gzip:   0.24 kB
+dist/client/assets/_protected.signout-BbG75PJn.js                       0.40 kB │ gzip:   0.32 kB
+dist/client/assets/_protected.example-DXoU5TWb.js                       0.47 kB │ gzip:   0.32 kB
+dist/client/assets/trash-vHl7NYVY.js                                    0.49 kB │ gzip:   0.31 kB
+dist/client/assets/textarea-KP7Kp7Mn.js                                 0.67 kB │ gzip:   0.41 kB
+dist/client/assets/save-rFCDACEJ.js                                     0.69 kB │ gzip:   0.36 kB
+dist/client/assets/label-ygP97wvL.js                                    0.71 kB │ gzip:   0.45 kB
+dist/client/assets/zap-xxQmZ669.js                                      0.71 kB │ gzip:   0.36 kB
+dist/client/assets/input-CY3i_nD-.js                                    0.85 kB │ gzip:   0.47 kB
+dist/client/assets/redirect-CaDPrkdo.js                                 0.94 kB │ gzip:   0.52 kB
+dist/client/assets/skeleton-B_WNLrvz.js                                 1.04 kB │ gzip:   0.61 kB
+dist/client/assets/card-vnjoVOuI.js                                     1.10 kB │ gzip:   0.44 kB
+dist/client/assets/badge-DLYw461V.js                                    1.64 kB │ gzip:   0.82 kB
+dist/client/assets/middleware-oha4Dbsm.js                               2.46 kB │ gzip:   1.20 kB
+dist/client/assets/dist-DVzjd-pV.js                                     2.94 kB │ gzip:   1.40 kB
+dist/client/assets/_protected.profile.api-keys-Cw9CuhPe.js              3.40 kB │ gzip:   1.49 kB
+dist/client/assets/_guest.index-rmsJ7G95.js                             3.53 kB │ gzip:   1.29 kB
+dist/client/assets/react-dom-bk2Hsp2g.js                                3.54 kB │ gzip:   1.34 kB
+dist/client/assets/terms-of-service-sUwNoaaC.js                         3.77 kB │ gzip:   1.79 kB
+dist/client/assets/_protected.profile.favorites-projects-cE-yYiO7.js    4.20 kB │ gzip:   1.56 kB
+dist/client/assets/_protected.profile--D8kOxNo.js                       4.55 kB │ gzip:   1.49 kB
+dist/client/assets/link-G67VwvvK.js                                     4.88 kB │ gzip:   2.37 kB
+dist/client/assets/_guest.signin-CEzabyMz.js                            5.09 kB │ gzip:   2.09 kB
+dist/client/assets/preload-helper-ChpIOudp.js                           5.25 kB │ gzip:   1.95 kB
+dist/client/assets/privacy-policy-FYWJhxgM.js                           5.28 kB │ gzip:   2.06 kB
+dist/client/assets/dist-CWRyuQuX.js                                     5.78 kB │ gzip:   2.35 kB
+dist/client/assets/_protected.profile.index-B8KZ21fh.js                 7.33 kB │ gzip:   2.58 kB
+dist/client/assets/main-nav-DiZvsl09.js                                 8.62 kB │ gzip:   3.51 kB
+dist/client/assets/jsx-runtime-DAjBnI0j.js                              8.64 kB │ gzip:   3.29 kB
+dist/client/assets/dialog--vCkVEsM.js                                   8.70 kB │ gzip:   3.16 kB
+dist/client/assets/tooltip-D_ZgievQ.js                                 10.58 kB │ gzip:   3.92 kB
+dist/client/assets/_protected.profile.my-projects-C9L6_6Ym.js          11.01 kB │ gzip:   4.05 kB
+dist/client/assets/_protected.gallery-DKhZqjpY.js                      11.84 kB │ gzip:   3.47 kB
+dist/client/assets/dist-Bnf1SexB.js                                    18.80 kB │ gzip:   4.35 kB
+dist/client/assets/useStore-CYhxptPV.js                                19.16 kB │ gzip:   6.89 kB
+dist/client/assets/dropdown-menu-CVd7xJBI.js                           20.32 kB │ gzip:   6.13 kB
+dist/client/assets/es2015-BBMzKVk6.js                                  23.82 kB │ gzip:   8.47 kB
+dist/client/assets/button-DLIrwzoA.js                                  25.45 kB │ gzip:   8.83 kB
+dist/client/assets/dist-zUuvF437.js                                    26.08 kB │ gzip:  10.02 kB
+dist/client/assets/_protected.wizard-BAOCsEXd.js                       28.21 kB │ gzip:   9.52 kB
+dist/client/assets/auth-client-CANnQ_bm.js                             28.23 kB │ gzip:  10.64 kB
+dist/client/assets/_protected.preview-DIP7dkC9.js                      34.42 kB │ gzip:  12.66 kB
+dist/client/assets/server-functions-pf5UVu-l.js                        36.77 kB │ gzip:  12.32 kB
+dist/client/assets/_protected.chat-5yhx9S6B.js                         47.91 kB │ gzip:  15.69 kB
+dist/client/assets/lib-BvukPp_u.js                                     59.40 kB │ gzip:  14.14 kB
+dist/client/assets/index-rJt3pvU2.js                                  243.13 kB │ gzip:  77.54 kB
+dist/client/assets/_protected.dashboard-x-tmvmez.js                   888.33 kB │ gzip: 246.65 kB
+
+✓ built in 649ms
+vite v8.1.4 building ssr environment for production...
+[2Ktransforming...✓ 3333 modules transformed.
+rendering chunks...
+Using secrets defined in .dev.vars
+computing gzip size...
+dist/server/.dev.vars                                                     0.38 kB
+dist/server/wrangler.json                                                 1.66 kB │ gzip:   0.78 kB
+dist/server/.vite/manifest.json                                          30.81 kB │ gzip:   3.64 kB
+dist/server/assets/globals-BTD4cdSB.css                                  77.34 kB │ gzip:  13.60 kB
+dist/server/assets/kysely-adapter-Bclf_48p.js                             0.13 kB │ gzip:   0.10 kB
+dist/server/assets/start-5Z2QO8AU.js                                      0.14 kB │ gzip:   0.13 kB
+dist/server/assets/_guest-BUX9AjI9.js                                     0.18 kB │ gzip:   0.15 kB
+dist/server/assets/_protected-RsYfLX3m.js                                 0.18 kB │ gzip:   0.15 kB
+dist/server/assets/root-DwT5UJhp.js                                       0.20 kB │ gzip:   0.16 kB
+dist/server/assets/empty-plugin-adapters-D9UWiqvJ.js                      0.22 kB │ gzip:   0.16 kB
+dist/server/assets/check-CzPb8hNZ.js                                      0.35 kB │ gzip:   0.27 kB
+dist/server/assets/loader-circle-J_2VXs1N.js                              0.39 kB │ gzip:   0.29 kB
+dist/server/assets/createServerRpc-BQTLusYf.js                            0.40 kB │ gzip:   0.27 kB
+dist/server/assets/code-j4EO2Ot3.js                                       0.42 kB │ gzip:   0.30 kB
+dist/server/assets/user-D4FFNP4O.js                                       0.44 kB │ gzip:   0.32 kB
+dist/server/assets/copy-xC_Cus1w.js                                       0.49 kB │ gzip:   0.34 kB
+dist/server/assets/_protected.profile.index-Bt2NlF-2.js                   0.49 kB │ gzip:   0.28 kB
+dist/server/assets/eye-BLTZBh4Z.js                                        0.50 kB │ gzip:   0.34 kB
+dist/server/assets/_protected.profile.my-projects-CIpN1DzD.js             0.52 kB │ gzip:   0.30 kB
+dist/server/assets/upload-HSelwGTU.js                                     0.53 kB │ gzip:   0.35 kB
+dist/server/assets/download-COMZIkKl.js                                   0.54 kB │ gzip:   0.36 kB
+dist/server/assets/string-DmMxG8W_.js                                     0.55 kB │ gzip:   0.34 kB
+dist/server/assets/_protected.profile.favorites-projects-ryZ_vZtj.js      0.55 kB │ gzip:   0.30 kB
+dist/server/assets/use-apikey-store-BGW2rl6J.js                           0.70 kB │ gzip:   0.36 kB
+dist/server/assets/route-session-Cp1psBLu.js                              0.83 kB │ gzip:   0.44 kB
+dist/server/assets/_protected.signout-BpK9MN0o.js                         0.84 kB │ gzip:   0.49 kB
+dist/server/assets/search-DTl2REwx.js                                     0.86 kB │ gzip:   0.38 kB
+dist/server/assets/useRouter-DLIwUNS_.js                                  0.87 kB │ gzip:   0.47 kB
+dist/server/assets/textarea-BnuQT6wn.js                                   0.88 kB │ gzip:   0.51 kB
+dist/server/assets/kysely-migration-tables-JkVUjPF_-D0gtDzmR.js           0.97 kB │ gzip:   0.54 kB
+dist/server/assets/trash-1cD2StU8.js                                      0.99 kB │ gzip:   0.48 kB
+dist/server/assets/_protected.example-DguXLmih.js                         1.04 kB │ gzip:   0.51 kB
+dist/server/assets/input-mvSvaI42.js                                      1.06 kB │ gzip:   0.57 kB
+dist/server/assets/useNavigate-DMFGkExG.js                                1.13 kB │ gzip:   0.62 kB
+dist/server/assets/_protected.gallery-CsR2mi1Z.js                         1.15 kB │ gzip:   0.54 kB
+dist/server/assets/save-OW70eKRS.js                                       1.21 kB │ gzip:   0.53 kB
+dist/server/assets/label-DuTHniDS.js                                      1.35 kB │ gzip:   0.68 kB
+dist/server/assets/zap-CDItF8si.js                                        1.43 kB │ gzip:   0.54 kB
+dist/server/assets/rolldown-runtime-FZ4Itg2g.js                           1.75 kB │ gzip:   0.79 kB
+dist/server/assets/card-_-JO9krP.js                                       1.78 kB │ gzip:   0.57 kB
+dist/server/assets/skeleton-DgHHpoT-.js                                   2.00 kB │ gzip:   0.88 kB
+dist/server/assets/sqlite-adapter-BvgA9teJ.js                             2.12 kB │ gzip:   0.82 kB
+dist/server/assets/redirect-SIDaGvS3.js                                   2.27 kB │ gzip:   0.95 kB
+dist/server/assets/badge-uVOfIMRu.js                                      2.84 kB │ gzip:   1.10 kB
+dist/server/assets/__23tanstack-start-server-fn-resolver-CF7yhjDa.js      2.89 kB │ gzip:   1.01 kB
+dist/server/assets/server-functions-BydArFBI.js                           3.74 kB │ gzip:   1.45 kB
+dist/server/assets/d1-sqlite-dialect-BLC8LXE6-jJ3WvI_z.js                 3.93 kB │ gzip:   1.46 kB
+dist/server/assets/bun-sqlite-dialect-BW9W1_Ps-TQTDt11V.js                4.61 kB │ gzip:   1.63 kB
+dist/server/assets/node-sqlite-dialect-BAEYOtcm.js                        4.61 kB │ gzip:   1.62 kB
+dist/server/assets/terms-of-service-BOjW-J6_.js                           5.99 kB │ gzip:   2.07 kB
+dist/server/assets/_protected.profile.api-keys-gPt0rJlh.js                6.15 kB │ gzip:   1.99 kB
+dist/server/assets/_guest.index-CWZzGlZz.js                               6.20 kB │ gzip:   1.61 kB
+dist/server/assets/middleware-DgVFGwEd.js                                 6.37 kB │ gzip:   2.02 kB
+dist/server/assets/react-dom-D9ZsQ7ds.js                                  6.58 kB │ gzip:   1.95 kB
+dist/server/assets/env-impl-C2VY0zE6.js                                   6.75 kB │ gzip:   2.54 kB
+dist/server/assets/_protected.profile.favorites-projects-D_bJCDl4.js      7.58 kB │ gzip:   2.07 kB
+dist/server/assets/dist-BRywSYOR.js                                       7.64 kB │ gzip:   2.36 kB
+dist/server/assets/_guest.signin-B2yIUHI9.js                              7.70 kB │ gzip:   2.50 kB
+dist/server/assets/_protected.profile-CewSexk6.js                         8.14 kB │ gzip:   2.05 kB
+dist/server/assets/privacy-policy-pahtyoQv.js                             8.98 kB │ gzip:   2.40 kB
+dist/server/assets/_tanstack-start-manifest_v-ZEcsTHs8.js                 9.00 kB │ gzip:   1.63 kB
+dist/server/assets/atom-HSyjuv6w.js                                      11.47 kB │ gzip:   3.03 kB
+dist/server/assets/repository-o2ZYMl0J.js                                11.84 kB │ gzip:   3.77 kB
+dist/server/assets/createServerFn-BhXNZl1x.js                            11.87 kB │ gzip:   3.57 kB
+dist/server/assets/lazyRouteComponent-CDKkEbF7.js                        12.62 kB │ gzip:   3.26 kB
+dist/server/assets/dist-DOYVz-Nn.js                                      14.14 kB │ gzip:   3.70 kB
+dist/server/assets/_protected.profile.index-B5dlXak0.js                  14.18 kB │ gzip:   3.62 kB
+dist/server/assets/dist-DgqGM1dw.js                                      14.56 kB │ gzip:   4.07 kB
+dist/server/assets/jsx-runtime-C5_cjLDo.js                               16.75 kB │ gzip:   4.42 kB
+dist/server/assets/link-CXHu3j7S.js                                      17.27 kB │ gzip:   4.75 kB
+dist/server/index.js                                                     17.60 kB │ gzip:   6.20 kB
+dist/server/assets/main-nav-o-4Joz0G.js                                  17.67 kB │ gzip:   5.03 kB
+dist/server/assets/dialog-tO3YFKR-.js                                    18.66 kB │ gzip:   4.50 kB
+dist/server/assets/server-functions-BS7mXXzK.js                          19.85 kB │ gzip:   5.16 kB
+dist/server/assets/_protected.profile.my-projects-BaSMUCP2.js            20.39 kB │ gzip:   5.51 kB
+dist/server/assets/dist-CkNvEEgc.js                                      22.47 kB │ gzip:   4.95 kB
+dist/server/assets/_protected.gallery-CKcETxqb.js                        22.50 kB │ gzip:   4.79 kB
+dist/server/assets/tooltip-uoxzbe0P.js                                   24.54 kB │ gzip:   5.83 kB
+dist/server/assets/auth-client-hPv8s70C.js                               29.53 kB │ gzip:   8.37 kB
+dist/server/assets/dist-BRjokOqR.js                                      37.38 kB │ gzip:  10.47 kB
+dist/server/assets/default-query-compiler-QtMnlyRl.js                    44.90 kB │ gzip:   7.91 kB
+dist/server/assets/dropdown-menu-D2-bAbiA.js                             46.20 kB │ gzip:   8.90 kB
+dist/server/assets/_protected.wizard-DKVlVXM8.js                         46.42 kB │ gzip:  12.46 kB
+dist/server/assets/useStore-kxwZGW2z.js                                  52.12 kB │ gzip:  14.23 kB
+dist/server/assets/es2015-Cfas6eex.js                                    57.01 kB │ gzip:  14.15 kB
+dist/server/assets/_protected.chat-Dsq8pWFj.js                           57.85 kB │ gzip:  15.31 kB
+dist/server/assets/_protected.preview-Dbn8kMRm.js                        65.33 kB │ gzip:  17.59 kB
+dist/server/assets/factory-DMXoAa72.js                                   67.96 kB │ gzip:  14.80 kB
+dist/server/assets/dist-DXMUcHHg.js                                      69.26 kB │ gzip:  16.16 kB
+dist/server/assets/button-BEIn6w_R.js                                    81.94 kB │ gzip:  16.52 kB
+dist/server/assets/dist-BJhGHYt7.js                                      86.51 kB │ gzip:  18.44 kB
+dist/server/assets/Match-D_j2D5k3.js                                    101.59 kB │ gzip:  23.94 kB
+dist/server/assets/lib-m3gkWM0r.js                                      107.52 kB │ gzip:  19.49 kB
+dist/server/assets/dist-MWL8aziq.js                                     204.16 kB │ gzip:  35.08 kB
+dist/server/assets/server-DQG-Im6l.js                                   210.96 kB │ gzip:  53.33 kB
+dist/server/assets/compiled-query-B-M8LYfq.js                           235.56 kB │ gzip:  39.25 kB
+dist/server/assets/router-D2p42Mxf.js                                   352.56 kB │ gzip:  78.02 kB
+dist/server/assets/server.edge-BocknAY3.js                              360.55 kB │ gzip:  70.68 kB
+dist/server/assets/auth-nJm3caG6.js                                   1,032.78 kB │ gzip: 221.79 kB
+dist/server/assets/_protected.dashboard-CtOjwvho.js                   1,515.63 kB │ gzip: 275.57 kB
+
+✓ built in 664ms
+
+ ⛅️ wrangler 4.110.0
+────────────────────
+Using redirected Wrangler configuration.
+ - Configuration being used: "dist/server/wrangler.json"
+ - Original user's configuration: "wrangler.jsonc"
+ - Deploy configuration file: ".wrangler/deploy/config.json"
+Attaching additional modules:
+┌──────────────────────────────────────────────────────────┬──────┬─────────────┐
+│ Name                                                     │ Type │ Size        │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/Match-D_j2D5k3.js                                 │ esm  │ 99.21 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/__23tanstack-start-server-fn-resolver-CF7yhjDa.js │ esm  │ 2.83 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_guest-BUX9AjI9.js                                │ esm  │ 0.18 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_guest.index-CWZzGlZz.js                          │ esm  │ 6.06 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_guest.signin-B2yIUHI9.js                         │ esm  │ 7.53 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected-RsYfLX3m.js                            │ esm  │ 0.18 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.chat-Dsq8pWFj.js                       │ esm  │ 56.50 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.dashboard-CtOjwvho.js                  │ esm  │ 1480.11 KiB │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.example-DguXLmih.js                    │ esm  │ 1.02 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.gallery-CKcETxqb.js                    │ esm  │ 21.97 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.gallery-CsR2mi1Z.js                    │ esm  │ 1.12 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.preview-Dbn8kMRm.js                    │ esm  │ 63.80 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.profile-CewSexk6.js                    │ esm  │ 7.96 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.profile.api-keys-gPt0rJlh.js           │ esm  │ 6.01 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.profile.favorites-projects-D_bJCDl4.js │ esm  │ 7.41 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.profile.favorites-projects-ryZ_vZtj.js │ esm  │ 0.54 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.profile.index-B5dlXak0.js              │ esm  │ 13.85 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.profile.index-Bt2NlF-2.js              │ esm  │ 0.48 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.profile.my-projects-BaSMUCP2.js        │ esm  │ 19.92 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.profile.my-projects-CIpN1DzD.js        │ esm  │ 0.52 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.signout-BpK9MN0o.js                    │ esm  │ 0.82 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_protected.wizard-DKVlVXM8.js                     │ esm  │ 45.33 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/_tanstack-start-manifest_v-ZEcsTHs8.js            │ esm  │ 8.79 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/atom-HSyjuv6w.js                                  │ esm  │ 11.20 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/auth-client-hPv8s70C.js                           │ esm  │ 28.84 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/auth-nJm3caG6.js                                  │ esm  │ 1008.58 KiB │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/badge-uVOfIMRu.js                                 │ esm  │ 2.78 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/bun-sqlite-dialect-BW9W1_Ps-TQTDt11V.js           │ esm  │ 4.50 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/button-BEIn6w_R.js                                │ esm  │ 80.02 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/card-_-JO9krP.js                                  │ esm  │ 1.74 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/check-CzPb8hNZ.js                                 │ esm  │ 0.35 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/code-j4EO2Ot3.js                                  │ esm  │ 0.42 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/compiled-query-B-M8LYfq.js                        │ esm  │ 230.04 KiB  │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/copy-xC_Cus1w.js                                  │ esm  │ 0.48 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/createServerFn-BhXNZl1x.js                        │ esm  │ 11.59 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/createServerRpc-BQTLusYf.js                       │ esm  │ 0.39 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/d1-sqlite-dialect-BLC8LXE6-jJ3WvI_z.js            │ esm  │ 3.85 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/default-query-compiler-QtMnlyRl.js                │ esm  │ 43.85 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/dialog-tO3YFKR-.js                                │ esm  │ 18.23 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/dist-BJhGHYt7.js                                  │ esm  │ 84.49 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/dist-BRjokOqR.js                                  │ esm  │ 36.50 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/dist-BRywSYOR.js                                  │ esm  │ 7.47 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/dist-CkNvEEgc.js                                  │ esm  │ 21.95 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/dist-DOYVz-Nn.js                                  │ esm  │ 13.82 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/dist-DXMUcHHg.js                                  │ esm  │ 67.64 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/dist-DgqGM1dw.js                                  │ esm  │ 14.22 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/dist-MWL8aziq.js                                  │ esm  │ 199.38 KiB  │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/download-COMZIkKl.js                              │ esm  │ 0.53 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/dropdown-menu-D2-bAbiA.js                         │ esm  │ 45.12 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/empty-plugin-adapters-D9UWiqvJ.js                 │ esm  │ 0.22 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/env-impl-C2VY0zE6.js                              │ esm  │ 6.60 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/es2015-Cfas6eex.js                                │ esm  │ 55.68 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/eye-BLTZBh4Z.js                                   │ esm  │ 0.49 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/factory-DMXoAa72.js                               │ esm  │ 66.37 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/input-mvSvaI42.js                                 │ esm  │ 1.04 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/jsx-runtime-C5_cjLDo.js                           │ esm  │ 16.36 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/kysely-adapter-Bclf_48p.js                        │ esm  │ 0.13 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/kysely-migration-tables-JkVUjPF_-D0gtDzmR.js      │ esm  │ 0.95 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/label-DuTHniDS.js                                 │ esm  │ 1.33 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/lazyRouteComponent-CDKkEbF7.js                    │ esm  │ 12.33 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/lib-m3gkWM0r.js                                   │ esm  │ 105.01 KiB  │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/link-CXHu3j7S.js                                  │ esm  │ 16.87 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/loader-circle-J_2VXs1N.js                         │ esm  │ 0.38 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/main-nav-o-4Joz0G.js                              │ esm  │ 17.26 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/middleware-DgVFGwEd.js                            │ esm  │ 6.23 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/node-sqlite-dialect-BAEYOtcm.js                   │ esm  │ 4.51 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/privacy-policy-pahtyoQv.js                        │ esm  │ 8.77 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/react-dom-D9ZsQ7ds.js                             │ esm  │ 6.43 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/redirect-SIDaGvS3.js                              │ esm  │ 2.22 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/repository-o2ZYMl0J.js                            │ esm  │ 11.57 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/rolldown-runtime-FZ4Itg2g.js                      │ esm  │ 1.71 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/root-DwT5UJhp.js                                  │ esm  │ 0.20 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/route-session-Cp1psBLu.js                         │ esm  │ 0.82 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/router-D2p42Mxf.js                                │ esm  │ 344.31 KiB  │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/save-OW70eKRS.js                                  │ esm  │ 1.19 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/search-DTl2REwx.js                                │ esm  │ 0.84 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/server-DQG-Im6l.js                                │ esm  │ 206.02 KiB  │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/server-functions-BS7mXXzK.js                      │ esm  │ 19.38 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/server-functions-BydArFBI.js                      │ esm  │ 3.66 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/server.edge-BocknAY3.js                           │ esm  │ 352.10 KiB  │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/skeleton-DgHHpoT-.js                              │ esm  │ 1.96 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/sqlite-adapter-BvgA9teJ.js                        │ esm  │ 2.07 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/start-5Z2QO8AU.js                                 │ esm  │ 0.14 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/string-DmMxG8W_.js                                │ esm  │ 0.54 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/terms-of-service-BOjW-J6_.js                      │ esm  │ 5.86 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/textarea-BnuQT6wn.js                              │ esm  │ 0.86 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/tooltip-uoxzbe0P.js                               │ esm  │ 23.97 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/trash-1cD2StU8.js                                 │ esm  │ 0.97 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/upload-HSelwGTU.js                                │ esm  │ 0.52 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/use-apikey-store-BGW2rl6J.js                      │ esm  │ 0.69 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/useNavigate-DMFGkExG.js                           │ esm  │ 1.10 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/useRouter-DLIwUNS_.js                             │ esm  │ 0.85 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/useStore-kxwZGW2z.js                              │ esm  │ 50.90 KiB   │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/user-D4FFNP4O.js                                  │ esm  │ 0.43 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ assets/zap-CDItF8si.js                                   │ esm  │ 1.40 KiB    │
+├──────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ Total (95 modules)                                       │      │ 5153.39 KiB │
+└──────────────────────────────────────────────────────────┴──────┴─────────────┘
+✨ Read 65 files from the assets directory /Users/fx/yansircc/livecanvas-builder/dist/client
+Total Upload: 5170.58 KiB / gzip: 1059.98 KiB
+Your Worker has access to the following bindings:
+Binding                                                    Resource         
+env.CHAT_GENERATION (ChatGenerationWorkflow)               Workflow         
+env.DB (livecanvas-builder-local)                          D1 Database      
+env.ASSETS (livecanvas-builder-assets-local)               R2 Bucket        
+
+--dry-run: exiting now.
+◇ injected env (7) from .dev.vars // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+
+Running 3 tests using 1 worker
+
+
+
+[1/3] [public-desktop] › tests/e2e/public.e2e.ts:4:1 › @public keeps public pages and protected redirects
+
+
+[2/3] [authenticated-desktop] › tests/e2e/authenticated.e2e.ts:4:1 › @auth loads the authenticated product surfaces
+
+
+[3/3] [authenticated-mobile] › tests/e2e/authenticated.e2e.ts:76:1 › @mobile has no horizontal overflow on primary views
+  3 passed (10.5s)
+{"event":"local_verification_complete","checks":5,"base_url":"http://127.0.0.1:5173"}

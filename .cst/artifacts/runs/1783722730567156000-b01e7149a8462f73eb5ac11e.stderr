@@ -1,0 +1,152 @@
+
+src/utils/__test__/json-parser.test.ts:
+(pass) Refactored JSON Parser Tests > should handle unescaped newlines in string literals [0.76ms]
+(pass) Refactored JSON Parser Tests > should handle complex HTML with attributes and nested structure [0.23ms]
+(pass) Refactored JSON Parser Tests > should handle malformed JSON with mixed quote styles and missing commas [0.71ms]
+(pass) Refactored JSON Parser Tests > should extract JSON from markdown with surrounding text [0.04ms]
+(pass) Refactored JSON Parser Tests > should recover from extremely malformed JSON [0.15ms]
+(pass) Refactored JSON Parser Tests > should handle JSON with Unicode characters and emojis [0.11ms]
+(pass) Refactored JSON Parser Tests > should handle deeply nested JSON structures
+(pass) Refactored JSON Parser Tests > should handle JSON with JavaScript code snippets inside [0.12ms]
+(pass) Refactored JSON Parser Tests > should extract partial JSON when complete parsing fails [0.10ms]
+(pass) Refactored JSON Parser Tests > should extract HTML as last resort when JSON parsing fails completely
+
+src/utils/__test__/get-icon-svg.test.ts:
+(pass) getIconSvg > should return the correct SVG for an icon without prefix [6.78ms]
+(pass) getIconSvg > should return the correct SVG for an icon with lucide prefix [0.54ms]
+(pass) getIconSvg > should handle fuzzy matching for icons with typos [4.34ms]
+(pass) getIconSvg > should handle case insensitivity [0.91ms]
+No matching icon found for: 
+(pass) getIconSvg > should return null if no icon is found [0.37ms]
+No matching icon found for: 
+No matching icon found for: a
+(pass) getIconSvg > should handle edge cases [2.81ms]
+(pass) getIconSvg > should work with various common icons [3.17ms]
+(pass) getIconSvg > should correctly match similar icon names [1.05ms]
+
+src/utils/__test__/replace-with-lucide-icon.test.ts:
+(pass) replaceLucideIcons > should replace simple lucide icon [0.38ms]
+(pass) replaceLucideIcons > should preserve other classes [0.02ms]
+(pass) replaceLucideIcons > should preserve other attributes [0.03ms]
+(pass) replaceLucideIcons > should handle escaped quotes [0.02ms]
+(pass) replaceLucideIcons > should handle multiple icons [0.09ms]
+(pass) replaceLucideIcons > should handle non-lucide icons [0.03ms]
+(pass) replaceLucideIcons > should handle empty input [0.01ms]
+(pass) replaceLucideIcons > should handle invalid lucide icon [0.04ms]
+(pass) replaceLucideIcons > should handle complex HTML structure [0.03ms]
+(pass) replaceLucideIcons > should handle multiple classes and attributes [0.05ms]
+
+src/migration/__tests__/transform.test.ts:
+(pass) snapshot source URL > uses the direct Neon endpoint for snapshot reads [0.16ms]
+(pass) PostgreSQL to D1 transformation > maps auth, time, boolean, null, and preserved counters deterministically [1.56ms]
+(pass) PostgreSQL to D1 transformation > imports special text through valid SQLite literals [3.10ms]
+
+src/migration/__tests__/media.test.ts:
+(pass) media migration algebra > maps owned URLs to deterministic non-overlapping R2 keys [0.19ms]
+(pass) media migration algebra > deduplicates owned database references and leaves providers external [0.10ms]
+(pass) media migration algebra > uses one key generator and one MIME mapping for new media [0.06ms]
+
+src/routes/__tests__/route-manifest.test.ts:
+(pass) TanStack Start migration manifest > preserves every existing page and API path [1.58ms]
+(pass) TanStack Start migration manifest > places authenticated pages under one pathless layout [0.06ms]
+(pass) TanStack Start migration manifest > uses only the local Cloudflare binding contract [0.14ms]
+
+src/routes/__tests__/authorization.test.ts:
+(pass) route authorization policy > redirects anonymous users away from protected routes [0.13ms]
+(pass) route authorization policy > redirects authenticated users away from guest entry routes [0.04ms]
+(pass) route authorization policy > allows the matching session state and always-public routes [0.01ms]
+(pass) route authorization policy > derives project ownership from the session user id [207.64ms]
+
+src/server/tasks/__tests__/http.test.ts:
+(pass) task HTTP contract > preserves submit, poll, and cancel wire responses with no-store [0.68ms]
+(pass) task HTTP contract > rejects anonymous submit before reading the body [0.08ms]
+
+src/server/tasks/__tests__/service.test.ts:
+(pass) generation task service > validates from the catalog and sends only encrypted BYOK params [122.11ms]
+
+src/server/tasks/__tests__/state-machine.test.ts:
+(pass) generation task state machine > expresses valid transitions without terminal escape paths [0.16ms]
+
+src/server/tasks/__tests__/encryption.test.ts:
+(pass) task payload encryption > round trips with task-bound AES-GCM and redacts logs [0.68ms]
+
+src/server/tasks/__tests__/repository.test.ts:
+(pass) generation task repository > lets exactly one terminal transition win and enforces owner reads [127.64ms]
+(pass) generation task repository > stores completed output and usage in separate canonical fields [118.76ms]
+
+src/server/tasks/__tests__/aihubmix.test.ts:
+(pass) AIHubMix generation boundary > uses BYOK and maps OpenAI-compatible usage without logging the key [0.33ms]
+
+src/server/tasks/__tests__/local-e2e.test.ts:
+(pass) local generation task loop > completes encrypted BYOK generation into D1 [114.24ms]
+{
+  event: "generation_workflow_failed",
+  task_id: "failed-task",
+  error: "upstream failed",
+}
+(pass) local generation task loop > records generation failure as a terminal D1 state [113.40ms]
+(pass) local generation task loop > does not execute a task canceled before Workflow start [116.32ms]
+
+src/server/auth/__tests__/auth.test.ts:
+(pass) Better Auth D1 boundary > configures only the existing Google and Discord providers [109.71ms]
+(pass) Better Auth D1 boundary > returns no session without a signed cookie [117.71ms]
+(pass) Better Auth D1 boundary > loads the signed session and additional user fields from D1 [132.07ms]
+
+src/server/repositories/__tests__/user-repository.test.ts:
+(pass) user repository > maps and updates profile fields by the authenticated user id [112.75ms]
+
+src/server/repositories/__tests__/project-repository.test.ts:
+(pass) project repository > keeps public, owned, and favorite query boundaries distinct [121.54ms]
+(pass) project repository > keeps purchase rows unique and count mutation atomic [187.55ms]
+(pass) project repository > keeps favorite rows unique under repeated concurrent toggles [175.27ms]
+(pass) project repository > owns project writes and derives published tags from D1 [137.29ms]
+
+src/server/storage/__tests__/r2-media-storage.test.ts:
+(pass) R2 media storage > writes one generated key and returns its public URL [0.07ms]
+(pass) R2 media storage > replaces media only after the new object is written [0.37ms]
+
+src/server/db/__tests__/schema.test.ts:
+(pass) D1 schema > creates the Better Auth and application tables [107.33ms]
+(pass) D1 schema > enforces foreign keys, cascade, and one user relation per project [123.39ms]
+(pass) D1 schema > stores booleans and timestamps deterministically [111.45ms]
+(pass) D1 schema > rejects generation task states with inconsistent terminal data [108.33ms]
+
+src/lib/aihubmix/__tests__/catalog.test.ts:
+(pass) AIHubMix model catalog > normalizes LLM rows, display names, modalities, and prices [0.38ms]
+(pass) AIHubMix model catalog > selects recent official GPT generations and latest Claude families [0.53ms]
+(pass) AIHubMix model catalog > uses all featured models as recommendations [0.08ms]
+(pass) AIHubMix model catalog > fetches with only the caller key and no cache [0.22ms]
+(pass) AIHubMix model catalog > fails closed for empty or unmatched catalogs [0.26ms]
+
+src/lib/aihubmix/__tests__/route.test.ts:
+(pass) AIHubMix model route > forwards caller authorization and returns no-store catalog [1.85ms]
+(pass) AIHubMix model route > never logs the caller key on upstream errors [0.15ms]
+
+src/features/dashboard/model-catalog/__tests__/catalog-client.test.ts:
+(pass) model catalog client > uses BYOK authorization and disables browser caching
+
+src/features/dashboard/model-catalog/__tests__/catalog-state.test.ts:
+(pass) model catalog state > keeps a valid selection and repairs an invalid selection from recommendations
+(pass) model catalog state > searches the same normalized fields displayed by the selector [0.24ms]
+(pass) model catalog state > derives cost and both submit triggers from the catalog selection [0.05ms]
+
+ 77 pass
+ 0 fail
+ 219 expect() calls
+Ran 77 tests across 23 files. [2.97s]
+$ tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.worker.json
+$ biome check .
+$ vite build
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+$ playwright test
+(node:8740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8746) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8767) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+$ bun run scripts/verify-local.ts
