@@ -1,0 +1,23 @@
+
+src/migration/__tests__/transform.test.ts:
+(pass) PostgreSQL to D1 transformation > maps auth, time, boolean, null, and preserved counters deterministically [2.09ms]
+(pass) PostgreSQL to D1 transformation > imports special text through valid SQLite literals [3.06ms]
+
+ 2 pass
+ 0 fail
+ 6 expect() calls
+Ran 2 tests across 1 file. [22.00ms]
+$ bun run scripts/migration/snapshot.ts --env .env.prod --output .migration/private
+75 | 				new Uint8Array(dumpStderr),
+76 | 				{
+77 | 					mode: 0o600,
+78 | 				},
+79 | 			);
+80 | 			throw new Error(`pg_dump failed with exit code ${dumpExitCode}`);
+                  ^
+error: pg_dump failed with exit code 1
+      at /Users/fx/yansircc/livecanvas-builder/scripts/migration/snapshot.ts:80:14
+      at processTicksAndRejections (unknown:7:39)
+
+Bun v1.3.12 (macOS arm64)
+error: script "migration:snapshot" exited with code 1

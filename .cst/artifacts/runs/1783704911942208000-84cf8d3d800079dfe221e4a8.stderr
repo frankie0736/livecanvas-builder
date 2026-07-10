@@ -1,0 +1,13 @@
+
+src/migration/__tests__/transform.test.ts:
+(pass) snapshot source URL > uses the direct Neon endpoint for snapshot reads [1.07ms]
+(pass) PostgreSQL to D1 transformation > maps auth, time, boolean, null, and preserved counters deterministically [1.61ms]
+(pass) PostgreSQL to D1 transformation > imports special text through valid SQLite literals [2.85ms]
+
+ 3 pass
+ 0 fail
+ 9 expect() calls
+Ran 3 tests across 1 file. [23.00ms]
+$ bun run scripts/migration/snapshot.ts --env .env.prod --output .migration/private
+$ bun run scripts/migration/import-local.ts --input .migration/private
+$ bun run scripts/migration/verify-local.ts --input .migration/private

@@ -1,0 +1,18 @@
+
+src/routes/__tests__/authorization.test.ts:
+(pass) route authorization policy > redirects anonymous users away from protected routes [0.78ms]
+(pass) route authorization policy > redirects authenticated users away from guest entry routes [0.04ms]
+(pass) route authorization policy > allows the matching session state and always-public routes [0.03ms]
+(pass) route authorization policy > derives project ownership from the session user id [135.60ms]
+
+src/server/auth/__tests__/auth.test.ts:
+(pass) Better Auth D1 boundary > configures only the existing Google and Discord providers [113.43ms]
+(pass) Better Auth D1 boundary > returns no session without a signed cookie [116.17ms]
+(pass) Better Auth D1 boundary > loads the signed session and additional user fields from D1 [173.81ms]
+
+ 7 pass
+ 0 fail
+ 13 expect() calls
+Ran 7 tests across 2 files. [701.00ms]
+$ tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.worker.json
+$ vite build
