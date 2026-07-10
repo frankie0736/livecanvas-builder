@@ -1,0 +1,4 @@
+bun test v1.3.12 (700fc117)
+snapshot ok tables=4536 dump=1
+import ok users=865 accounts=865 projects=482 purchases=140 favorites=196 sessions=0
+verify ok tables=2548 sessions=0 purchaseCountMismatches=5

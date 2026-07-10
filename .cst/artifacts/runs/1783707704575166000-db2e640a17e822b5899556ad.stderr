@@ -1,0 +1,29 @@
+
+src/migration/__tests__/media.test.ts:
+(pass) media migration algebra > maps owned URLs to deterministic non-overlapping R2 keys [0.26ms]
+(pass) media migration algebra > deduplicates owned database references and leaves providers external [0.11ms]
+(pass) media migration algebra > uses one key generator and one MIME mapping for new media [0.04ms]
+
+src/server/storage/__tests__/r2-media-storage.test.ts:
+(pass) R2 media storage > writes one generated key and returns its public URL
+(pass) R2 media storage > replaces media only after the new object is written [0.46ms]
+
+ 5 pass
+ 0 fail
+ 12 expect() calls
+Ran 5 tests across 2 files. [11.00ms]
+$ node --no-warnings --experimental-strip-types scripts/migration/media.ts archive --env .env.prod --output .migration/private
+$ node --no-warnings --experimental-strip-types scripts/migration/media.ts import-local --input .migration/private
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mYou have defined bindings to the following Workflows without a script_name:[0m
+
+  - {"binding":"CHAT_GENERATION","name":"livecanvas-builder-chat-local","class_name":"ChatGenerationWorkflow"}
+  These are not available in local development, so you will not be able to bind to them when testing locally, but they should work in production.
+
+
+$ node --no-warnings --experimental-strip-types scripts/migration/media.ts verify-local --input .migration/private
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mYou have defined bindings to the following Workflows without a script_name:[0m
+
+  - {"binding":"CHAT_GENERATION","name":"livecanvas-builder-chat-local","class_name":"ChatGenerationWorkflow"}
+  These are not available in local development, so you will not be able to bind to them when testing locally, but they should work in production.
+
+

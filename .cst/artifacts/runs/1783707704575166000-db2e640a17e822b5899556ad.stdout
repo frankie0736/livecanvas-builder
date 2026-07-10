@@ -1,0 +1,24 @@
+bun test v1.3.12 (700fc117)
+archive progress completed=64 total=597
+archive progress completed=128 total=597
+archive progress completed=192 total=597
+archive progress completed=256 total=597
+archive progress completed=320 total=597
+archive progress completed=384 total=597
+archive progress completed=448 total=597
+archive progress completed=512 total=597
+archive progress completed=576 total=597
+archive progress completed=597 total=597
+archive ok vercel=589 bunny=8 referenced=454 orphaned=143
+Using secrets defined in .dev.vars.example
+local R2 import progress completed=64 total=454
+local R2 import progress completed=128 total=454
+local R2 import progress completed=192 total=454
+local R2 import progress completed=256 total=454
+local R2 import progress completed=320 total=454
+local R2 import progress completed=384 total=454
+local R2 import progress completed=448 total=454
+local R2 import progress completed=454 total=454
+local R2 import ok objects=454
+Using secrets defined in .dev.vars.example
+local R2 verify ok objects=454 missingMappings=0
