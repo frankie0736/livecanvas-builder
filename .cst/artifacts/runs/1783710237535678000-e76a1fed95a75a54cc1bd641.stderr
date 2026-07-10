@@ -1,0 +1,51 @@
+
+src/server/tasks/__tests__/http.test.ts:
+(pass) task HTTP contract > preserves submit, poll, and cancel wire responses with no-store [1.14ms]
+(pass) task HTTP contract > rejects anonymous submit before reading the body [0.32ms]
+
+src/server/tasks/__tests__/service.test.ts:
+(pass) generation task service > validates from the catalog and sends only encrypted BYOK params [135.67ms]
+
+src/server/tasks/__tests__/state-machine.test.ts:
+(pass) generation task state machine > expresses valid transitions without terminal escape paths
+
+src/server/tasks/__tests__/encryption.test.ts:
+(pass) task payload encryption > round trips with task-bound AES-GCM and redacts logs [0.47ms]
+
+src/server/tasks/__tests__/repository.test.ts:
+(pass) generation task repository > lets exactly one terminal transition win and enforces owner reads [118.61ms]
+(pass) generation task repository > stores completed output and usage in separate canonical fields [114.00ms]
+
+src/server/tasks/__tests__/aihubmix.test.ts:
+(pass) AIHubMix generation boundary > uses BYOK and maps OpenAI-compatible usage without logging the key [0.71ms]
+
+src/server/tasks/__tests__/local-e2e.test.ts:
+(pass) local generation task loop > completes encrypted BYOK generation into D1 [116.93ms]
+{
+  event: "generation_workflow_failed",
+  task_id: "failed-task",
+  error: "upstream failed",
+}
+(pass) local generation task loop > records generation failure as a terminal D1 state [116.77ms]
+(pass) local generation task loop > does not execute a task canceled before Workflow start [110.95ms]
+
+ 11 pass
+ 0 fail
+ 36 expect() calls
+Ran 11 tests across 7 files. [810.00ms]
+$ bun test src/server/tasks/__tests__/local-e2e.test.ts
+
+src/server/tasks/__tests__/local-e2e.test.ts:
+(pass) local generation task loop > completes encrypted BYOK generation into D1 [150.76ms]
+{
+  event: "generation_workflow_failed",
+  task_id: "failed-task",
+  error: "upstream failed",
+}
+(pass) local generation task loop > records generation failure as a terminal D1 state [114.06ms]
+(pass) local generation task loop > does not execute a task canceled before Workflow start [115.67ms]
+
+ 3 pass
+ 0 fail
+ 8 expect() calls
+Ran 3 tests across 1 file. [467.00ms]

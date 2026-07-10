@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { migrationApiPlaceholder } from "./-api-placeholder";
+
+import { createStatusHandler } from "@/server/tasks/http";
+
 export const Route = createFileRoute("/api/task/status")({
-	server: { handlers: { GET: migrationApiPlaceholder } },
+	server: { handlers: { GET: createStatusHandler() } },
 });

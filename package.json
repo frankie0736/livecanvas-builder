@@ -16,6 +16,7 @@
 		"migration:archive-media": "node --no-warnings --experimental-strip-types scripts/migration/media.ts archive",
 		"migration:import-media-local": "node --no-warnings --experimental-strip-types scripts/migration/media.ts import-local",
 		"migration:verify-media-local": "node --no-warnings --experimental-strip-types scripts/migration/media.ts verify-local",
+		"test:task-e2e:local": "bun test src/server/tasks/__tests__/local-e2e.test.ts",
 		"cf:dry-run": "wrangler deploy --dry-run",
 		"cf-typegen": "wrangler types",
 		"dev": "vite dev",
