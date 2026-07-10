@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/types/project";
 import { Bookmark, Heart, User } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 
 interface ProjectCardProps {
@@ -80,7 +79,7 @@ export const GalleryProjectCard = function GalleryProjectCard({
 							<div className="h-8 w-8 animate-spin rounded-full border-4 border-zinc-200 border-t-zinc-400" />
 						</div>
 					)}
-					<Image
+					<img
 						src={thumbnailUrl}
 						alt={project.title}
 						width={600}
@@ -88,11 +87,8 @@ export const GalleryProjectCard = function GalleryProjectCard({
 						className={`h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105 ${
 							isImageLoaded ? "opacity-100" : "opacity-0"
 						}`}
-						priority={false}
 						loading="lazy"
 						onLoad={handleImageLoad}
-						placeholder="blur"
-						blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFeAJcUZXpJgAAAABJRU5ErkJggg=="
 					/>
 				</div>
 			</div>
@@ -124,7 +120,7 @@ export const GalleryProjectCard = function GalleryProjectCard({
 					<div className="flex items-center space-x-2">
 						<div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700">
 							{project.user?.image ? (
-								<Image
+								<img
 									src={project.user.image}
 									alt={project.user.name || ""}
 									width={24}

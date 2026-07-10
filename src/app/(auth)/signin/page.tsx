@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -7,10 +9,27 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
-import { login } from "../actions";
+import type { FormEvent } from "react";
+import { useState } from "react";
 
 export default function SignIn() {
+	const [loadingProvider, setLoadingProvider] = useState<string | null>(null);
+
+	async function login(
+		event: FormEvent<HTMLFormElement>,
+		provider: "google" | "discord",
+	) {
+		event.preventDefault();
+		setLoadingProvider(provider);
+		const { error } = await authClient.signIn.social({
+			provider,
+			callbackURL: "/profile",
+		});
+		if (error) setLoadingProvider(null);
+	}
+
 	return (
 		<div className="flex min-h-[80vh] items-center justify-center">
 			<Card
@@ -34,16 +53,12 @@ export default function SignIn() {
 
 				<CardContent className="space-y-6 p-8 pt-4">
 					<div className="grid grid-cols-1 gap-3">
-						<form
-							action={async () => {
-								"use server";
-								await login("google", { callbackUrl: "/profile" });
-							}}
-						>
+						<form onSubmit={(event) => login(event, "google")}>
 							<Button
 								type="submit"
 								variant="outline"
 								className="group relative h-12 w-full border-zinc-200 bg-zinc-50 ring-1 ring-zinc-100 transition duration-200 hover:border-zinc-300 hover:bg-white dark:border-zinc-800/50 dark:bg-[#1a1a1a] dark:ring-zinc-800/50 dark:hover:border-zinc-700 dark:hover:bg-[#222222]"
+								disabled={loadingProvider !== null}
 							>
 								<svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
 									<path
@@ -70,16 +85,12 @@ export default function SignIn() {
 							</Button>
 						</form>
 
-						<form
-							action={async () => {
-								"use server";
-								await login("discord", { callbackUrl: "/profile" });
-							}}
-						>
+						<form onSubmit={(event) => login(event, "discord")}>
 							<Button
 								type="submit"
 								variant="outline"
 								className="group relative h-12 w-full border-zinc-200 bg-zinc-50 ring-1 ring-zinc-100 transition duration-200 hover:border-zinc-300 hover:bg-white dark:border-zinc-800/50 dark:bg-[#1a1a1a] dark:ring-zinc-800/50 dark:hover:border-zinc-700 dark:hover:bg-[#222222]"
+								disabled={loadingProvider !== null}
 							>
 								<svg
 									className="mr-2 h-5 w-5 text-[#5865F2]"

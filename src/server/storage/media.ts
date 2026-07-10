@@ -131,12 +131,13 @@ export function collectOwnedMediaReferences(
 }
 
 export function publicMediaUrl(baseUrl: string, key: string) {
+	const encodedKey = key
+		.split("/")
+		.map((segment) => encodeURIComponent(decodeURIComponent(segment)))
+		.join("/");
+	if (baseUrl.startsWith("/")) {
+		return `${baseUrl.replace(/\/$/, "")}/${encodedKey}`;
+	}
 	const base = new URL(baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`);
-	return new URL(
-		key
-			.split("/")
-			.map((segment) => encodeURIComponent(decodeURIComponent(segment)))
-			.join("/"),
-		base,
-	).toString();
+	return new URL(encodedKey, base).toString();
 }

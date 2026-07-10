@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/types/project";
 import { Bookmark, Check, Copy, Heart, User } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 
 interface ProjectModalProps {
@@ -133,7 +132,7 @@ export function ProjectModal({
 						<div className="mb-4 flex items-center space-x-2">
 							<div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700">
 								{project.user?.image ? (
-									<Image
+									<img
 										src={project.user.image}
 										alt={project.user.name || ""}
 										width={32}
@@ -224,7 +223,7 @@ export function ProjectModal({
 										<div className="h-8 w-8 animate-spin rounded-full border-4 border-zinc-300 border-t-zinc-500" />
 									</div>
 								)}
-								<Image
+								<img
 									src={thumbnailUrl}
 									alt={project.title}
 									width={1200}
@@ -232,7 +231,6 @@ export function ProjectModal({
 									className={`w-full object-contain ${
 										isImageLoaded ? "opacity-100" : "opacity-0"
 									}`}
-									priority
 									onLoad={handleImageLoad}
 								/>
 							</div>

@@ -6,8 +6,8 @@ import { createActions } from "./actions";
 import type { DialogueState } from "./types";
 
 // Default provider and model values
-const defaultProviderId: AvailableProviderId = "anthropic";
-const defaultModelId: AvailableModelId = "claude-3-7-sonnet-20250219";
+const defaultProviderId: AvailableProviderId = "aihubmix";
+const defaultModelId: AvailableModelId = "";
 
 // Initial dialogue
 const defaultDialogue: Dialogue = {

@@ -30,6 +30,7 @@ import { Route as ApiTaskSubmitRouteImport } from './routes/api.task.submit'
 import { Route as ApiTaskStatusRouteImport } from './routes/api.task.status'
 import { Route as ApiTaskCancelRouteImport } from './routes/api.task.cancel'
 import { Route as ApiModelsAihubmixRouteImport } from './routes/api.models.aihubmix'
+import { Route as ApiMediaSplatRouteImport } from './routes/api.media.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api.auth.$'
 import { Route as ProtectedProfileMyProjectsRouteImport } from './routes/_protected.profile.my-projects'
 import { Route as ProtectedProfileFavoritesProjectsRouteImport } from './routes/_protected.profile.favorites-projects'
@@ -138,6 +139,11 @@ const ApiModelsAihubmixRoute = ApiModelsAihubmixRouteImport.update({
   path: '/api/models/aihubmix',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMediaSplatRoute = ApiMediaSplatRouteImport.update({
+  id: '/api/media/$',
+  path: '/api/media/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -180,6 +186,7 @@ export interface FileRoutesByFullPath {
   '/profile/favorites-projects': typeof ProtectedProfileFavoritesProjectsRoute
   '/profile/my-projects': typeof ProtectedProfileMyProjectsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/media/$': typeof ApiMediaSplatRoute
   '/api/models/aihubmix': typeof ApiModelsAihubmixRoute
   '/api/task/cancel': typeof ApiTaskCancelRoute
   '/api/task/status': typeof ApiTaskStatusRoute
@@ -204,6 +211,7 @@ export interface FileRoutesByTo {
   '/profile/favorites-projects': typeof ProtectedProfileFavoritesProjectsRoute
   '/profile/my-projects': typeof ProtectedProfileMyProjectsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/media/$': typeof ApiMediaSplatRoute
   '/api/models/aihubmix': typeof ApiModelsAihubmixRoute
   '/api/task/cancel': typeof ApiTaskCancelRoute
   '/api/task/status': typeof ApiTaskStatusRoute
@@ -232,6 +240,7 @@ export interface FileRoutesById {
   '/_protected/profile/favorites-projects': typeof ProtectedProfileFavoritesProjectsRoute
   '/_protected/profile/my-projects': typeof ProtectedProfileMyProjectsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/media/$': typeof ApiMediaSplatRoute
   '/api/models/aihubmix': typeof ApiModelsAihubmixRoute
   '/api/task/cancel': typeof ApiTaskCancelRoute
   '/api/task/status': typeof ApiTaskStatusRoute
@@ -259,6 +268,7 @@ export interface FileRouteTypes {
     | '/profile/favorites-projects'
     | '/profile/my-projects'
     | '/api/auth/$'
+    | '/api/media/$'
     | '/api/models/aihubmix'
     | '/api/task/cancel'
     | '/api/task/status'
@@ -283,6 +293,7 @@ export interface FileRouteTypes {
     | '/profile/favorites-projects'
     | '/profile/my-projects'
     | '/api/auth/$'
+    | '/api/media/$'
     | '/api/models/aihubmix'
     | '/api/task/cancel'
     | '/api/task/status'
@@ -310,6 +321,7 @@ export interface FileRouteTypes {
     | '/_protected/profile/favorites-projects'
     | '/_protected/profile/my-projects'
     | '/api/auth/$'
+    | '/api/media/$'
     | '/api/models/aihubmix'
     | '/api/task/cancel'
     | '/api/task/status'
@@ -325,6 +337,7 @@ export interface RootRouteChildren {
   ApiChatRoute: typeof ApiChatRoute
   ApiMetadataRoute: typeof ApiMetadataRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiMediaSplatRoute: typeof ApiMediaSplatRoute
   ApiModelsAihubmixRoute: typeof ApiModelsAihubmixRoute
   ApiTaskCancelRoute: typeof ApiTaskCancelRoute
   ApiTaskStatusRoute: typeof ApiTaskStatusRoute
@@ -480,6 +493,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiModelsAihubmixRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/media/$': {
+      id: '/api/media/$'
+      path: '/api/media/$'
+      fullPath: '/api/media/$'
+      preLoaderRoute: typeof ApiMediaSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -575,6 +595,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiChatRoute: ApiChatRoute,
   ApiMetadataRoute: ApiMetadataRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiMediaSplatRoute: ApiMediaSplatRoute,
   ApiModelsAihubmixRoute: ApiModelsAihubmixRoute,
   ApiTaskCancelRoute: ApiTaskCancelRoute,
   ApiTaskStatusRoute: ApiTaskStatusRoute,

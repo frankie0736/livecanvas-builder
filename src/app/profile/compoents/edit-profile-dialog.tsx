@@ -14,10 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { fileToBase64 } from "@/utils/file-to-base64";
+import { useRouter } from "@tanstack/react-router";
 import { Upload, User } from "lucide-react";
-import type { Session } from "next-auth";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { uploadAvatar } from "../actions/avatar";
@@ -26,7 +24,15 @@ import type { ProfileFormData } from "../actions/project";
 import { MAX_BACKGROUND_LENGTH } from "../constants";
 
 interface EditProfileDialogProps {
-	session: Session | null;
+	session: {
+		user: {
+			id: string;
+			name: string;
+			email: string;
+			image?: string | null;
+			backgroundInfo?: string | null;
+		};
+	} | null;
 }
 
 export function EditProfileDialog({ session }: EditProfileDialogProps) {
@@ -99,7 +105,7 @@ export function EditProfileDialog({ session }: EditProfileDialogProps) {
 
 			if (result.success) {
 				setOpen(false);
-				router.refresh();
+				void router.invalidate();
 			}
 		});
 	}
@@ -158,11 +164,12 @@ export function EditProfileDialog({ session }: EditProfileDialogProps) {
 								<div className="flex items-center gap-4">
 									<div className="relative h-16 w-16 overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
 										{formData.image ? (
-											<Image
+											<img
 												src={formData.image}
 												alt="User avatar"
-												fill
-												className="object-cover"
+												width={64}
+												height={64}
+												className="h-full w-full object-cover"
 											/>
 										) : (
 											<div className="flex h-full w-full items-center justify-center">

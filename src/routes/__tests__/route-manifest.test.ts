@@ -12,6 +12,7 @@ const expectedRoutes = [
 	"/",
 	"/api/auth/$",
 	"/api/chat",
+	"/api/media/$",
 	"/api/metadata",
 	"/api/models/aihubmix",
 	"/api/task/cancel",

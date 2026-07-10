@@ -5,7 +5,7 @@ import type {
 	PollTaskResult,
 	TaskRequest,
 } from "@/types/task";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "@tanstack/react-router";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import type { FormValues } from "./schema";
@@ -35,7 +35,7 @@ export function useFormSubmission({
 	setSubmissionResponse,
 	submitAndPollTask,
 }: UseFormSubmissionProps) {
-	const router = useRouter();
+	const navigate = useNavigate();
 	// Get the apiKey from the zustand store
 	const apiKey = useApiKeyStore((state) => state.apiKey);
 
@@ -51,7 +51,7 @@ export function useFormSubmission({
 					description: "请先在个人资料页面添加您的 AIHubMix API 密钥才能继续。",
 					action: {
 						label: "前往设置",
-						onClick: () => router.push("/profile/api-keys"),
+						onClick: () => void navigate({ to: "/profile/api-keys" }),
 					},
 				});
 				return; // Stop submission if no API key
@@ -111,7 +111,7 @@ export function useFormSubmission({
 			setSubmissionResponse,
 			submitAndPollTask,
 			apiKey,
-			router,
+			navigate,
 		],
 	);
 

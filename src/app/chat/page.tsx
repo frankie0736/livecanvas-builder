@@ -2,8 +2,8 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
-import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import ChatComponent from "./chat-component";
 
 // Create loading component
 function ChatLoading() {
@@ -26,12 +26,6 @@ function ChatLoading() {
 		</div>
 	);
 }
-
-// Dynamic import of the chat component with SSR disabled
-const ChatComponent = dynamic(() => import("./chat-component"), {
-	ssr: false,
-	loading: () => <ChatLoading />,
-});
 
 export default function ChatPage() {
 	return (

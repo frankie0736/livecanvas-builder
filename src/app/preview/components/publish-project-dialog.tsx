@@ -14,9 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useApiKeyStore } from "@/store/use-apikey-store";
+import { useNavigate } from "@tanstack/react-router";
 import { Loader2 } from "lucide-react";
-import { nanoid } from "nanoid";
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { createProject } from "../actions/project";
@@ -47,7 +46,7 @@ export function PublishProjectDialog({
 	isCapturingScreenshot = false,
 	projectId,
 }: PublishProjectDialogProps) {
-	const router = useRouter();
+	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isGeneratingMetadata, setIsGeneratingMetadata] = useState(false);
@@ -72,7 +71,7 @@ export function PublishProjectDialog({
 					description: "请先在个人资料页面添加您的 AIHubMix API 密钥才能继续。",
 					action: {
 						label: "前往设置",
-						onClick: () => router.push("/profile/api-keys"),
+						onClick: () => void navigate({ to: "/profile/api-keys" }),
 					},
 				});
 				return;
@@ -94,8 +93,14 @@ export function PublishProjectDialog({
 				});
 
 				if (!response.ok) {
-					const errorData = await response.json();
-					throw new Error(errorData.error || "Failed to generate metadata");
+					const errorData = (await response.json().catch(() => ({}))) as {
+						error?: unknown;
+					};
+					throw new Error(
+						typeof errorData.error === "string"
+							? errorData.error
+							: "Failed to generate metadata",
+					);
 				}
 
 				const data = (await response.json()) as Metadata;
@@ -118,7 +123,7 @@ export function PublishProjectDialog({
 				setIsGeneratingMetadata(false);
 			}
 		},
-		[htmlContent, apiKey, router], // Add apiKey to dependency array
+		[htmlContent, apiKey, navigate],
 	);
 
 	// Fetch metadata when dialog opens
@@ -137,7 +142,7 @@ export function PublishProjectDialog({
 		setIsLoading(true);
 		try {
 			// Generate a project ID that will be used for both thumbnail and project creation
-			const newProjectId = projectId || nanoid();
+			const newProjectId = projectId || crypto.randomUUID();
 
 			let thumbnail = "";
 
@@ -181,7 +186,7 @@ export function PublishProjectDialog({
 				onSuccess();
 			} else {
 				// Navigate to gallery
-				router.push("/gallery");
+				void navigate({ to: "/gallery" });
 			}
 		} catch (error) {
 			console.error("Failed to publish project:", error);

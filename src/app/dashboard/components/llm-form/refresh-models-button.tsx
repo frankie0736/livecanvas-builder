@@ -1,19 +1,20 @@
 import { Button } from "@/components/ui/button";
+import { useModelCatalog } from "@/features/dashboard/model-catalog";
 import { cn } from "@/lib/utils";
 import { RotateCw } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { refreshModels } from "../../actions/refresh-models";
 
 export const RefreshModelsButton = () => {
 	const [isRefreshing, setIsRefreshing] = useState(false);
+	const { refresh } = useModelCatalog();
 
 	const handleRefresh = async () => {
 		if (isRefreshing) return;
 
 		try {
 			setIsRefreshing(true);
-			await refreshModels();
+			await refresh();
 			toast.success("模型列表已刷新", {
 				description: (
 					<p className="text-muted-foreground text-sm">

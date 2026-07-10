@@ -11,7 +11,6 @@ import {
 import { Input } from "@/components/ui/input";
 import type { Project } from "@/types/project";
 import { Edit, Eye, MoreHorizontal, Search, Trash } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 import { deleteProject, updateProject } from "../actions/project";
@@ -142,14 +141,15 @@ export default function MyProjectsClient({
 							className="overflow-hidden border-zinc-200 dark:border-zinc-800"
 						>
 							<div className="relative aspect-video w-full">
-								<Image
+								<img
 									src={
 										project.thumbnail ||
 										"https://images.unsplash.com/photo-1618788372246-79faff0c3742?q=80&w=2070&auto=format&fit=crop"
 									}
 									alt={project.title}
-									fill
-									className="object-cover"
+									width={600}
+									height={338}
+									className="h-full w-full object-cover"
 								/>
 							</div>
 							<CardContent className="p-4">

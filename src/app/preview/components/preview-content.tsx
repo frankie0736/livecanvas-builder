@@ -1,7 +1,6 @@
 "use client";
 
 import { Monitor, Smartphone, Tablet } from "lucide-react";
-import type { Session } from "next-auth";
 import { usePreview } from "../hooks/use-preview";
 import { useScreenshot } from "../hooks/use-screenshot";
 import { CopyButton } from "./copy-button";
@@ -10,7 +9,7 @@ import { PublishProjectDialog } from "./publish-project-dialog";
 import { ThemeSwitcher } from "./theme-swither";
 
 interface PreviewContentProps {
-	session: Session | null;
+	session: { user: { id: string } } | null;
 }
 
 export function PreviewContent({ session }: PreviewContentProps) {

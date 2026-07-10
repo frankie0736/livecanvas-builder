@@ -81,7 +81,35 @@ async function getInteractionState(
 }
 
 export function createProjectRepository(database: D1Database) {
+	const getOwnedProject = async (userId: string, projectId: string) => {
+		const row = await database
+			.prepare(
+				`SELECT ${projectColumns} FROM project p INNER JOIN user u ON u.id = p.user_id WHERE p.id = ? AND p.user_id = ?`,
+			)
+			.bind(projectId, userId)
+			.first();
+		return row ? mapProject(row) : null;
+	};
+
 	return {
+		async listPublishedTags() {
+			const rows = await database
+				.prepare(
+					"SELECT tags FROM project WHERE is_published = 1 AND tags != ''",
+				)
+				.all<{ tags: string }>();
+			return [
+				...new Set(
+					rows.results.flatMap(({ tags }) =>
+						tags
+							.split(",")
+							.map((tag) => tag.trim())
+							.filter(Boolean),
+					),
+				),
+			].sort();
+		},
+
 		async listPublishedProjects(input: {
 			limit: number;
 			offset: number;
@@ -132,14 +160,82 @@ export function createProjectRepository(database: D1Database) {
 			return result.results.map(mapProject);
 		},
 
-		async getOwnedProject(userId: string, projectId: string) {
-			const row = await database
+		getOwnedProject,
+
+		async createProject(
+			userId: string,
+			input: {
+				id?: string;
+				title: string;
+				description?: string;
+				htmlContent: string;
+				thumbnail?: string;
+				tags?: string;
+				isPublished: boolean;
+			},
+		) {
+			const id = input.id ?? crypto.randomUUID();
+			const now = Date.now();
+			await database
 				.prepare(
-					`SELECT ${projectColumns} FROM project p INNER JOIN user u ON u.id = p.user_id WHERE p.id = ? AND p.user_id = ?`,
+					`INSERT INTO project
+					 (id, title, description, html_content, thumbnail, tags, purchase_count, is_published, user_id, created_at, updated_at)
+					 VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`,
 				)
+				.bind(
+					id,
+					input.title,
+					input.description ?? "",
+					input.htmlContent,
+					input.thumbnail ?? "",
+					input.tags ?? "",
+					input.isPublished ? 1 : 0,
+					userId,
+					now,
+					now,
+				)
+				.run();
+			return getOwnedProject(userId, id);
+		},
+
+		async updateOwnedProject(
+			userId: string,
+			projectId: string,
+			input: {
+				title?: string;
+				description?: string | null;
+				tags?: string | null;
+				isPublished?: boolean;
+			},
+		) {
+			const current = await getOwnedProject(userId, projectId);
+			if (!current) return null;
+			await database
+				.prepare(
+					`UPDATE project SET title = ?, description = ?, tags = ?, is_published = ?, updated_at = ?
+					 WHERE id = ? AND user_id = ?`,
+				)
+				.bind(
+					input.title ?? current.title,
+					input.description ?? current.description ?? "",
+					input.tags ?? current.tags,
+					(input.isPublished ?? current.isPublished) ? 1 : 0,
+					Date.now(),
+					projectId,
+					userId,
+				)
+				.run();
+			return getOwnedProject(userId, projectId);
+		},
+
+		async deleteOwnedProject(userId: string, projectId: string) {
+			const current = await getOwnedProject(userId, projectId);
+			if (!current) return null;
+			await database
+				.prepare("DELETE FROM project WHERE id = ? AND user_id = ?")
 				.bind(projectId, userId)
-				.first();
-			return row ? mapProject(row) : null;
+				.run();
+			return current;
 		},
 
 		async getInteractions(userId: string, projectId: string) {

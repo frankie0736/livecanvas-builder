@@ -11,7 +11,6 @@ import {
 import { Input } from "@/components/ui/input";
 import type { Project } from "@/types/project";
 import { Eye, MoreHorizontal, Search } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 
 interface FavoriteProjectsClientProps {
@@ -82,14 +81,15 @@ export default function FavoriteProjectsClient({
 							className="overflow-hidden border-zinc-200 dark:border-zinc-800"
 						>
 							<div className="relative aspect-video w-full">
-								<Image
+								<img
 									src={
 										project.thumbnail ||
 										"https://images.unsplash.com/photo-1618788372246-79faff0c3742?q=80&w=2070&auto=format&fit=crop"
 									}
 									alt={project.title}
-									fill
-									className="object-cover"
+									width={600}
+									height={338}
+									className="h-full w-full object-cover"
 								/>
 							</div>
 							<CardContent className="p-4">
@@ -128,7 +128,7 @@ export default function FavoriteProjectsClient({
 									<div className="flex items-center space-x-2">
 										<div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700">
 											{project.user?.image ? (
-												<Image
+												<img
 													src={project.user.image}
 													alt={project.user?.name || "User"}
 													width={24}

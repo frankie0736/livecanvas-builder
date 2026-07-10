@@ -1,7 +1,7 @@
 "use client";
 
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { Code, CreditCard, FileText, Star, User } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
 
 interface MenuItem {
 	label: string;
@@ -34,8 +34,10 @@ const menuItems: MenuItem[] = [
 ];
 
 export function MenuItems() {
-	const pathname = usePathname();
-	const router = useRouter();
+	const pathname = useRouterState({
+		select: (state) => state.location.pathname,
+	});
+	const navigate = useNavigate();
 
 	// Check if the current path matches a menu item
 	const isActive = (itemKey: string) => {
@@ -59,7 +61,9 @@ export function MenuItems() {
 				<button
 					key={item.key}
 					onClick={() => {
-						router.push(`/profile/${item.key}`);
+						void navigate({
+							to: item.key ? `/profile/${item.key}` : "/profile",
+						});
 					}}
 					className={`flex w-full items-center justify-between rounded-lg p-2.5 transition-colors duration-200 ${
 						isActive(item.key)

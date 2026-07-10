@@ -1,7 +1,6 @@
 import type { PersistedSubmission } from "@/types/common";
 import type { ModelList } from "@/types/model";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { Session } from "next-auth";
 import { useCallback, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useDialogueStore } from "../dialogue-store";
@@ -16,7 +15,7 @@ import { useModelSync } from "./use-model-sync";
 export { formSchema, type FormValues } from "./schema";
 
 interface UseLlmFormProps {
-	session: Session | null;
+	session: { user: { id: string; backgroundInfo?: string | null } } | null;
 	isMounted: boolean;
 	setIsMounted: (value: boolean) => void;
 	formSchema?: typeof formSchema;
@@ -124,7 +123,7 @@ export function useLlmForm({
 		resolver: zodResolver(formSchemaProp || formSchema),
 		defaultValues: {
 			prompt: "",
-			providerId: selectedProviderId || "anthropic",
+			providerId: selectedProviderId || "aihubmix",
 			modelId: selectedModelId,
 			withBackgroundInfo: false,
 			precisionMode: false,

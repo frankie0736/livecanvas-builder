@@ -1,6 +1,11 @@
+import DashboardLayout from "@/app/dashboard/layout";
+import Dashboard from "@/app/dashboard/page";
 import { createFileRoute } from "@tanstack/react-router";
-import { MigrationPlaceholder } from "./-placeholder";
 
 export const Route = createFileRoute("/_protected/dashboard")({
-	component: () => <MigrationPlaceholder route="/dashboard" />,
+	component: () => (
+		<DashboardLayout>
+			<Dashboard />
+		</DashboardLayout>
+	),
 });

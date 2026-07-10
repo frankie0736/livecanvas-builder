@@ -1,8 +1,8 @@
 import { Footer } from "@/components/footer";
 import { MainNav } from "@/components/nav/main-nav";
 import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, Code, Layers, Zap } from "lucide-react";
-import Link from "next/link";
 
 export default function Home() {
 	return (
@@ -21,16 +21,16 @@ export default function Home() {
 					代码。通过简单的提示，你可以创建美观、响应式的网页组件。
 				</p>
 				<div className="flex flex-col gap-4 sm:flex-row">
-					<Link href="/signup">
+					<Link to="/signin">
 						<Button size="lg" className="gap-2">
 							免费开始使用 <ArrowRight className="h-4 w-4" />
 						</Button>
 					</Link>
-					<Link href="https://aihubmix.com/token" target="_blank">
+					<a href="https://aihubmix.com/token" target="_blank" rel="noreferrer">
 						<Button size="lg" variant="outline">
 							获取 API 密钥
 						</Button>
-					</Link>
+					</a>
 				</div>
 			</section>
 
@@ -76,7 +76,7 @@ export default function Home() {
 					<p className="mb-8 text-xl">
 						立即注册并开始创建令人惊叹的 Tailwind CSS 组件。
 					</p>
-					<Link href="/signup">
+					<Link to="/signin">
 						<Button size="lg" variant="secondary" className="gap-2">
 							免费注册 <ArrowRight className="h-4 w-4" />
 						</Button>

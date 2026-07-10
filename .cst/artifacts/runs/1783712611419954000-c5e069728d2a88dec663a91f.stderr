@@ -1,0 +1,31 @@
+
+src/routes/__tests__/route-manifest.test.ts:
+(pass) TanStack Start migration manifest > preserves every existing page and API path [4.62ms]
+(pass) TanStack Start migration manifest > places authenticated pages under one pathless layout [0.07ms]
+(pass) TanStack Start migration manifest > uses only the local Cloudflare binding contract [0.09ms]
+
+src/routes/__tests__/authorization.test.ts:
+(pass) route authorization policy > redirects anonymous users away from protected routes [0.74ms]
+(pass) route authorization policy > redirects authenticated users away from guest entry routes
+(pass) route authorization policy > allows the matching session state and always-public routes [0.14ms]
+(pass) route authorization policy > derives project ownership from the session user id [141.14ms]
+
+src/features/dashboard/model-catalog/__tests__/catalog-client.test.ts:
+(pass) model catalog client > uses BYOK authorization and disables browser caching
+
+src/features/dashboard/model-catalog/__tests__/catalog-state.test.ts:
+(pass) model catalog state > keeps a valid selection and repairs an invalid selection from recommendations
+(pass) model catalog state > searches the same normalized fields displayed by the selector [0.59ms]
+(pass) model catalog state > derives cost and both submit triggers from the catalog selection [0.04ms]
+
+ 11 pass
+ 0 fail
+ 31 expect() calls
+Ran 11 tests across 4 files. [372.00ms]
+$ tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.worker.json
+$ vite build
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

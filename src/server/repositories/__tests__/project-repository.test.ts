@@ -160,4 +160,38 @@ describe("project repository", () => {
 			favorited: count === 0,
 		});
 	});
+
+	it("owns project writes and derives published tags from D1", async () => {
+		const { repository } = await createFixture();
+		const created = await repository.createProject("user-1", {
+			id: "project-new",
+			title: "New project",
+			description: "Initial",
+			htmlContent: "<main>new</main>",
+			tags: "landing, launch",
+			isPublished: true,
+		});
+		expect(created?.userId).toBe("user-1");
+		expect(
+			await repository.getOwnedProject("user-2", "project-new"),
+		).toBeNull();
+
+		const updated = await repository.updateOwnedProject(
+			"user-1",
+			"project-new",
+			{ title: "Updated", isPublished: false },
+		);
+		expect(updated?.title).toBe("Updated");
+		expect(updated?.isPublished).toBe(false);
+		expect(await repository.listPublishedTags()).toEqual(["b2b", "landing"]);
+		expect(
+			await repository.deleteOwnedProject("user-2", "project-new"),
+		).toBeNull();
+		expect(
+			await repository.deleteOwnedProject("user-1", "project-new"),
+		).not.toBeNull();
+		expect(
+			await repository.getOwnedProject("user-1", "project-new"),
+		).toBeNull();
+	});
 });

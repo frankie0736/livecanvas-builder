@@ -7,7 +7,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "@tanstack/react-router";
 import * as React from "react";
 
 interface CssMissingDialogProps {
@@ -16,10 +16,10 @@ interface CssMissingDialogProps {
 }
 
 export function CssMissingDialog({ open, onClose }: CssMissingDialogProps) {
-	const router = useRouter();
+	const navigate = useNavigate();
 
 	const handleRedirectToWizard = () => {
-		router.push("/wizard");
+		void navigate({ to: "/wizard" });
 	};
 
 	return (

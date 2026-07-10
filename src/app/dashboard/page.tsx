@@ -1,63 +1,53 @@
-import { getModelList } from "@/lib/models";
-import { auth } from "@/server/auth";
-import { addAuthCacheTags, addEdgeConfigCacheTags } from "@/server/cache";
-import type { Session } from "next-auth";
-import { Suspense } from "react";
-import DialogueTabs from "./components/dialogue-tabs";
-import { LlmForm } from "./components/llm-form";
-import { LlmFormSkeleton } from "./components/llm-form/llm-form-skeleton";
-import ResultDisplay from "./components/result-display";
-import { ResultDisplaySkeleton } from "./components/result-display/result-display-skeleton";
+"use client";
 
-async function getCachedFormData(sessionData: Session) {
-	"use cache";
-
-	addAuthCacheTags(sessionData.user.id);
-	addEdgeConfigCacheTags();
-
-	const modelList = await getModelList();
-	return {
-		sessionData,
-		modelList,
-	};
-}
-
-async function getCachedModelList() {
-	"use cache";
-
-	addEdgeConfigCacheTags();
-	const modelList = await getModelList();
-	return modelList;
-}
-
-async function SuspenseLlmForm() {
-	const session = await auth();
-	if (!session) {
-		return null;
-	}
-	const { sessionData, modelList } = await getCachedFormData(session);
-	return <LlmForm session={sessionData} modelList={modelList} />;
-}
-
-async function SuspenseResultDisplay() {
-	const modelList = await getCachedModelList();
-	return <ResultDisplay modelList={modelList} />;
-}
+import DialogueTabs from "@/app/dashboard/components/dialogue-tabs";
+import { LlmForm } from "@/app/dashboard/components/llm-form";
+import ResultDisplay from "@/app/dashboard/components/result-display";
+import { useDialogueStore } from "@/app/dashboard/hooks";
+import {
+	ModelCatalogProvider,
+	useModelCatalog,
+} from "@/features/dashboard/model-catalog";
+import { authClient } from "@/lib/auth-client";
+import type { ModelList } from "@/types/model";
+import { useEffect, useMemo } from "react";
 
 export default function Dashboard() {
 	return (
+		<ModelCatalogProvider>
+			<DashboardContent />
+		</ModelCatalogProvider>
+	);
+}
+
+function DashboardContent() {
+	const { data: session } = authClient.useSession();
+	const { catalog, selectedModelId } = useModelCatalog();
+	const setGlobalModel = useDialogueStore((state) => state.setGlobalModel);
+	const modelList = useMemo<ModelList>(
+		() => ({
+			aihubmix: (catalog?.models ?? []).map((model) => ({
+				name: model.name,
+				id: model.id,
+				price: model.price,
+				canOutputStructuredData: true,
+			})),
+		}),
+		[catalog],
+	);
+
+	useEffect(() => {
+		if (selectedModelId) setGlobalModel("aihubmix", selectedModelId);
+	}, [selectedModelId, setGlobalModel]);
+
+	return (
 		<div className="container mx-auto flex flex-col gap-6 p-4">
 			<DialogueTabs />
-
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 				<div className="space-y-4">
-					<Suspense fallback={<LlmFormSkeleton />}>
-						<SuspenseLlmForm />
-					</Suspense>
+					<LlmForm session={session} modelList={modelList} />
 				</div>
-				<Suspense fallback={<ResultDisplaySkeleton />}>
-					<SuspenseResultDisplay />
-				</Suspense>
+				<ResultDisplay modelList={modelList} />
 			</div>
 		</div>
 	);

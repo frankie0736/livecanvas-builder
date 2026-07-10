@@ -62,7 +62,7 @@ export function useFormInitialization(
 
 			// Default provider if null/undefined
 			const providerId =
-				currentProviderId || ("anthropic" as AvailableProviderId);
+				currentProviderId || ("aihubmix" as AvailableProviderId);
 			// Only reset if we have a valid model ID
 			if (currentModelId) {
 				form.reset({

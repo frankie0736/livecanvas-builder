@@ -19,6 +19,7 @@ export const PROTECTED_ROUTES = [
 export const API_ROUTES = [
 	"/api/auth/$",
 	"/api/chat",
+	"/api/media/$",
 	"/api/metadata",
 	"/api/models/aihubmix",
 	"/api/task/cancel",

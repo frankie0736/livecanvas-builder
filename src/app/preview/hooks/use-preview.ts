@@ -1,5 +1,5 @@
 import type { Dialogue } from "@/types/common";
-import { useSearchParams } from "next/navigation";
+import { useRouterState } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { notFoundExample } from "../mock-htmls/404";
 import { processCss } from "../utils/css-processor";
@@ -20,7 +20,10 @@ interface StoreState {
 }
 
 export function usePreview() {
-	const searchParams = useSearchParams();
+	const searchString = useRouterState({
+		select: (state) => state.location.searchStr,
+	});
+	const searchParams = new URLSearchParams(searchString);
 	const dialogueId = searchParams.get("d");
 	const submissionId = searchParams.get("s");
 

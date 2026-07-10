@@ -1,6 +1,6 @@
+import Home from "@/app/page";
 import { createFileRoute } from "@tanstack/react-router";
-import { MigrationPlaceholder } from "./-placeholder";
 
 export const Route = createFileRoute("/_guest/")({
-	component: () => <MigrationPlaceholder route="/" />,
+	component: Home,
 });

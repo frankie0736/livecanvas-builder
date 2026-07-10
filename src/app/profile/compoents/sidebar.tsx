@@ -1,13 +1,21 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Link } from "@tanstack/react-router";
 import { LogOut, User } from "lucide-react";
-import type { Session } from "next-auth";
-import Link from "next/link";
 import { Suspense } from "react";
 import { MenuItems } from "./menu-items";
 
 // Dynamic user profile component that needs Suspense
-function UserProfile({ session }: { session: Session | null }) {
+export interface ProfileSession {
+	user: {
+		id: string;
+		name: string;
+		email: string;
+		image?: string | null;
+	};
+}
+
+function UserProfile({ session }: { session: ProfileSession | null }) {
 	return (
 		<>
 			<div className="relative">
@@ -58,7 +66,7 @@ function UserProfileSkeleton() {
 }
 
 interface SidebarProps {
-	session: Session | null;
+	session: ProfileSession | null;
 }
 
 export function Sidebar({ session }: SidebarProps) {
@@ -81,7 +89,7 @@ export function Sidebar({ session }: SidebarProps) {
 
 				{/* Logout button - static content, no need for Suspense */}
 				<Link
-					href="/api/auth/signout"
+					to="/signout"
 					className="flex w-full items-center gap-2 rounded-lg p-2.5 text-red-500 transition-colors duration-200 hover:bg-red-50 dark:hover:bg-red-900/10"
 				>
 					<LogOut className="h-4 w-4" />

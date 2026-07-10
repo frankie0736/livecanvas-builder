@@ -10,7 +10,6 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import type { ModelList } from "@/types/model";
-import type { Session } from "next-auth";
 import { useCallback, useEffect, useState } from "react";
 import type * as z from "zod";
 import {
@@ -29,7 +28,7 @@ import { TaskActionButton } from "./task-action-button";
 export type FormValues = z.infer<typeof formSchema>;
 
 interface LlmFormProps {
-	session: Session | null;
+	session: { user: { id: string; backgroundInfo?: string | null } } | null;
 	modelList: ModelList;
 }
 
