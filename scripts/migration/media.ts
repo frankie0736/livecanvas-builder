@@ -1,8 +1,8 @@
+import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdir, readFile, rename, stat, writeFile } from "node:fs/promises";
 import { join, resolve, sep } from "node:path";
 import { parseArgs } from "node:util";
-import { list } from "@vercel/blob";
 import { getPlatformProxy } from "wrangler";
 
 import {
@@ -27,6 +27,12 @@ type InventoryObject = {
 	expectedSize?: number;
 	accessKey?: string;
 };
+type VercelBlob = {
+	url: string;
+	downloadUrl: string;
+	pathname: string;
+	size: number;
+};
 
 const { values, positionals } = parseArgs({
 	options: {
@@ -40,12 +46,18 @@ const { values, positionals } = parseArgs({
 
 const mode = positionals[0];
 if (
-	!(["archive", "import-local", "verify-local"] as Array<unknown>).includes(
-		mode,
-	)
+	!(
+		[
+			"archive",
+			"import-local",
+			"import-remote",
+			"verify-local",
+			"verify-remote",
+		] as Array<unknown>
+	).includes(mode)
 ) {
 	throw new Error(
-		"media migration requires archive, import-local, or verify-local",
+		"media migration requires archive, import-local, import-remote, verify-local, or verify-remote",
 	);
 }
 
@@ -57,6 +69,10 @@ function sha256Bytes(value: ArrayBuffer | ArrayBufferView) {
 				: new Uint8Array(value),
 		)
 		.digest("hex");
+}
+
+function sha256Strings(values: string[]) {
+	return createHash("sha256").update(values.join("\n")).digest("hex");
 }
 
 async function readJson<T>(path: string) {
@@ -120,7 +136,8 @@ async function sourceReferences(root: string) {
 }
 
 async function listVercelBlobs(token: string) {
-	const blobs: Awaited<ReturnType<typeof list>>["blobs"] = [];
+	const { list } = await import("@vercel/blob");
+	const blobs: VercelBlob[] = [];
 	let cursor: string | undefined;
 	do {
 		const page = await list({ token, cursor, limit: 1_000 });
@@ -381,6 +398,14 @@ async function archiveMedia() {
 	);
 }
 
+type MediaTarget = "local" | "remote";
+
+function targetEnvironment(target: MediaTarget) {
+	if (target === "local") return undefined;
+	if (!values.env) throw new Error("remote media migration requires --env");
+	return values.env;
+}
+
 async function platformProxy() {
 	return getPlatformProxy<LocalBindings>({
 		configPath: resolve("wrangler.jsonc"),
@@ -388,6 +413,80 @@ async function platformProxy() {
 		persist: true,
 		remoteBindings: false,
 	});
+}
+
+async function remoteR2Target() {
+	const environment = targetEnvironment("remote");
+	const config = await readJson<{
+		env?: Record<
+			string,
+			{ r2_buckets?: Array<{ binding: string; bucket_name: string }> }
+		>;
+	}>(resolve("wrangler.jsonc"));
+	const bucket = config.env?.[environment]?.r2_buckets?.find(
+		({ binding }) => binding === "ASSETS",
+	);
+	if (!bucket)
+		throw new Error(`missing ASSETS R2 binding for env=${environment}`);
+	return { environment, bucketName: bucket.bucket_name };
+}
+
+async function runWrangler(environment: string, args: string[]) {
+	let lastFailure: { errorOutput: Buffer; code: number | null } | undefined;
+	for (let attempt = 0; attempt < 3; attempt += 1) {
+		const child = spawn("wrangler", args, {
+			stdio: ["ignore", "pipe", "pipe"],
+			timeout: 60_000,
+		});
+		const stdout = new Promise<Buffer>((resolvePromise, reject) => {
+			const chunks: Buffer[] = [];
+			child.stdout.on("data", (chunk) => chunks.push(chunk));
+			child.stdout.on("error", reject);
+			child.stdout.on("end", () => resolvePromise(Buffer.concat(chunks)));
+		});
+		const stderr = new Promise<Buffer>((resolvePromise, reject) => {
+			const chunks: Buffer[] = [];
+			child.stderr.on("data", (chunk) => chunks.push(chunk));
+			child.stderr.on("error", reject);
+			child.stderr.on("end", () => resolvePromise(Buffer.concat(chunks)));
+		});
+		const exitCode = new Promise<number | null>((resolvePromise, reject) => {
+			child.on("error", reject);
+			child.on("close", resolvePromise);
+		});
+		const [output, errorOutput, code] = await Promise.all([
+			stdout,
+			stderr,
+			exitCode,
+		]);
+		if (code === 0) return output;
+		lastFailure = { errorOutput, code };
+		if (attempt < 2) {
+			await new Promise((resolvePromise) =>
+				setTimeout(resolvePromise, 1_000 * 2 ** attempt),
+			);
+		}
+	}
+	if (lastFailure) {
+		const digest = createHash("sha256").update(args.join("\0")).digest("hex");
+		const diagnosticDirectory = join(
+			".migration/private",
+			`${environment}-logs`,
+		);
+		await mkdir(diagnosticDirectory, { recursive: true, mode: 0o700 });
+		const diagnosticPath = join(
+			diagnosticDirectory,
+			`wrangler-${digest}.stderr`,
+		);
+		await writeFile(diagnosticPath, lastFailure.errorOutput, { mode: 0o600 });
+		const status = lastFailure.errorOutput
+			.toString("utf8")
+			.match(/\b[45]\d\d\b/)?.[0];
+		throw new Error(
+			`wrangler command failed exit_code=${lastFailure.code} http_status=${status ?? "unknown"} diagnostic=${diagnosticPath}`,
+		);
+	}
+	throw new Error("wrangler command did not produce a result");
 }
 
 async function listR2Keys(bucket: R2Bucket, prefix: string) {
@@ -401,12 +500,59 @@ async function listR2Keys(bucket: R2Bucket, prefix: string) {
 	return keys.sort();
 }
 
-async function importMediaLocal() {
-	if (!values.input) throw new Error("import-media-local requires --input");
+async function r2ObjectMatches(
+	bucket: R2Bucket,
+	expected: ArchivedMediaObject,
+) {
+	const object = await bucket.head(expected.r2Key);
+	return (
+		object !== null &&
+		object.size === expected.size &&
+		object.httpMetadata?.contentType === expected.contentType &&
+		object.customMetadata?.sha256 === expected.sha256
+	);
+}
+
+async function importMedia(target: MediaTarget) {
+	if (!values.input) throw new Error(`import-media-${target} requires --input`);
 	const root = resolve(values.input);
 	const manifest = await readManifest(join(root, "media-manifest.json"));
 	if (!manifest.complete) throw new Error("media archive is incomplete");
 	const expected = manifest.objects.filter(({ referenced }) => referenced);
+	if (target === "remote") {
+		const remote = await remoteR2Target();
+		let completed = 0;
+		await inBatches(
+			expected,
+			// Concurrent Wrangler R2 writes produced partial remote objects.
+			1,
+			async (object) => {
+				await runWrangler(remote.environment, [
+					"r2",
+					"object",
+					"put",
+					`${remote.bucketName}/${object.r2Key}`,
+					"--remote",
+					"--env",
+					remote.environment,
+					"--file",
+					archiveFilePath(root, object.archivePath),
+					"--content-type",
+					object.contentType,
+				]);
+			},
+			async (objects) => {
+				completed += objects.length;
+				if (completed % 64 === 0 || completed === expected.length) {
+					console.log(
+						`remote R2 import progress completed=${completed} total=${expected.length}`,
+					);
+				}
+			},
+		);
+		console.log(`remote R2 import ok objects=${expected.length}`);
+		return;
+	}
 	const expectedKeys = new Set(expected.map(({ r2Key }) => r2Key));
 	const proxy = await platformProxy();
 	try {
@@ -415,10 +561,12 @@ async function importMediaLocal() {
 		);
 		if (staleKeys.length > 0) await proxy.env.ASSETS.delete(staleKeys);
 		let completed = 0;
+		let uploaded = 0;
 		await inBatches(
 			expected,
 			8,
 			async (object) => {
+				if (await r2ObjectMatches(proxy.env.ASSETS, object)) return false;
 				const body = await readFile(archiveFilePath(root, object.archivePath));
 				await proxy.env.ASSETS.put(object.r2Key, body, {
 					httpMetadata: { contentType: object.contentType },
@@ -427,12 +575,15 @@ async function importMediaLocal() {
 						source: object.source,
 					},
 				});
+				return true;
 			},
-			async (objects) => {
-				completed += objects.length;
+			async (results) => {
+				const objects = results.filter(Boolean);
+				completed += results.length;
+				uploaded += objects.length;
 				if (completed % 64 === 0 || completed === expected.length) {
 					console.log(
-						`local R2 import progress completed=${completed} total=${expected.length}`,
+						`${target} R2 import progress completed=${completed} uploaded=${uploaded} total=${expected.length}`,
 					);
 				}
 			},
@@ -440,32 +591,104 @@ async function importMediaLocal() {
 	} finally {
 		await proxy.dispose();
 	}
-	console.log(`local R2 import ok objects=${expected.length}`);
+	console.log(`${target} R2 import ok objects=${expected.length}`);
 }
 
-async function verifyMediaLocal() {
-	if (!values.input) throw new Error("verify-media-local requires --input");
+async function verifyMedia(target: MediaTarget) {
+	if (!values.input) throw new Error(`verify-media-${target} requires --input`);
 	const root = resolve(values.input);
 	const manifest = await readManifest(join(root, "media-manifest.json"));
 	if (!manifest.complete) throw new Error("media archive is incomplete");
 	const expected = manifest.objects.filter(({ referenced }) => referenced);
+	if (target === "remote") {
+		const remote = await remoteR2Target();
+		await inBatches(expected, 2, async (object) => {
+			const body = await runWrangler(remote.environment, [
+				"r2",
+				"object",
+				"get",
+				`${remote.bucketName}/${object.r2Key}`,
+				"--remote",
+				"--env",
+				remote.environment,
+				"--pipe",
+			]);
+			const actualSha256 = sha256Bytes(body);
+			if (body.byteLength !== object.size || actualSha256 !== object.sha256) {
+				throw new Error(
+					`remote R2 object failed byte verification key=${object.r2Key} expected_size=${object.size} actual_size=${body.byteLength} expected_sha256=${object.sha256} actual_sha256=${actualSha256}`,
+				);
+			}
+		});
+		const [users, projects] = await Promise.all([
+			runWrangler(remote.environment, [
+				"d1",
+				"execute",
+				"DB",
+				"--remote",
+				"--env",
+				remote.environment,
+				"--command",
+				"SELECT image FROM user WHERE image IS NOT NULL",
+				"--json",
+			]),
+			runWrangler(remote.environment, [
+				"d1",
+				"execute",
+				"DB",
+				"--remote",
+				"--env",
+				remote.environment,
+				"--command",
+				"SELECT thumbnail FROM project WHERE thumbnail IS NOT NULL",
+				"--json",
+			]),
+		]);
+		const rows = (output: Buffer) => {
+			const result = JSON.parse(output.toString("utf8")) as Array<{
+				results: Array<Record<string, string>>;
+			}>;
+			return result.flatMap(({ results }) => results);
+		};
+		const databaseReferences = collectOwnedMediaReferences(
+			rows(users),
+			rows(projects),
+		);
+		const manifestReferences = new Set(
+			expected.map(({ sourceUrl }) => sourceUrl),
+		);
+		if (
+			databaseReferences.size !== manifestReferences.size ||
+			[...databaseReferences.keys()].some(
+				(sourceUrl) => !manifestReferences.has(sourceUrl),
+			)
+		) {
+			throw new Error("D1 media URL mapping is incomplete");
+		}
+		console.log(
+			`remote R2 verify ok objects=${expected.length} missingMappings=0`,
+		);
+		return;
+	}
 	const expectedKeys = expected.map(({ r2Key }) => r2Key).sort();
 	const proxy = await platformProxy();
 	try {
 		const actualKeys = await listR2Keys(proxy.env.ASSETS, "legacy/");
 		if (JSON.stringify(actualKeys) !== JSON.stringify(expectedKeys)) {
-			throw new Error("local R2 key set does not match media manifest");
+			throw new Error(
+				`${target} R2 key set does not match media manifest expected_count=${expectedKeys.length} actual_count=${actualKeys.length} expected_digest=${sha256Strings(expectedKeys)} actual_digest=${sha256Strings(actualKeys)}`,
+			);
 		}
 		await inBatches(expected, 8, async (expectedObject) => {
 			const object = await proxy.env.ASSETS.get(expectedObject.r2Key);
-			if (!object) throw new Error("local R2 object is missing");
+			if (!object) throw new Error(`${target} R2 object is missing`);
 			const body = await object.arrayBuffer();
 			if (
 				body.byteLength !== expectedObject.size ||
 				sha256Bytes(body) !== expectedObject.sha256 ||
 				object.httpMetadata?.contentType !== expectedObject.contentType
 			) {
-				throw new Error("local R2 object failed byte verification");
+				throw new Error(`${target} R2 object failed byte verification`);
 			}
 		});
 
@@ -496,10 +719,12 @@ async function verifyMediaLocal() {
 		await proxy.dispose();
 	}
 	console.log(
-		`local R2 verify ok objects=${expected.length} missingMappings=0`,
+		`${target} R2 verify ok objects=${expected.length} missingMappings=0`,
 	);
 }
 
 if (mode === "archive") await archiveMedia();
-if (mode === "import-local") await importMediaLocal();
-if (mode === "verify-local") await verifyMediaLocal();
+if (mode === "import-local") await importMedia("local");
+if (mode === "import-remote") await importMedia("remote");
+if (mode === "verify-local") await verifyMedia("local");
+if (mode === "verify-remote") await verifyMedia("remote");

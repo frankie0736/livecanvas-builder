@@ -26,5 +26,67 @@
 			"name": "livecanvas-builder-chat-local",
 			"class_name": "ChatGenerationWorkflow"
 		}
-	]
+	],
+	"env": {
+		"staging": {
+			"account_id": "c924dde93190ddb1f5d551fb1c42e1db",
+			"name": "livecanvas-builder-staging",
+			"vars": {
+				"NODE_ENV": "production"
+			},
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "livecanvas-builder-staging",
+					"database_id": "afbdd3f0-ee48-48dd-8505-5f85dc147d01"
+				}
+			],
+			"r2_buckets": [
+				{
+					"binding": "ASSETS",
+					"bucket_name": "livecanvas-builder-assets-staging"
+				}
+			],
+			"workflows": [
+				{
+					"binding": "CHAT_GENERATION",
+					"name": "livecanvas-builder-chat-staging",
+					"class_name": "ChatGenerationWorkflow"
+				}
+			]
+		},
+		"production": {
+			"account_id": "d1da6c26f60e13fb006a3d4b5dae3f09",
+			"name": "livecanvas-builder",
+			"routes": [
+				{
+					"pattern": "lc.xunpanziyou.com",
+					"custom_domain": true
+				}
+			],
+			"vars": {
+				"NODE_ENV": "production"
+			},
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "livecanvas-builder",
+					"database_id": "5f822d4a-17b7-4fba-9b57-0b04412081cb"
+				}
+			],
+			"r2_buckets": [
+				{
+					"binding": "ASSETS",
+					"bucket_name": "livecanvas-builder-assets"
+				}
+			],
+			"workflows": [
+				{
+					"binding": "CHAT_GENERATION",
+					"name": "livecanvas-builder-chat",
+					"class_name": "ChatGenerationWorkflow"
+				}
+			]
+		}
+	}
 }

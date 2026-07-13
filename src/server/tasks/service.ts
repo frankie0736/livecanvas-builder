@@ -32,7 +32,7 @@ export function createGenerationTaskService(input: {
 	createId?: () => string;
 }) {
 	const fetchCatalog = input.fetchCatalog ?? fetchAihubmixModelCatalog;
-	const createId = input.createId ?? crypto.randomUUID;
+	const createId = input.createId ?? (() => crypto.randomUUID());
 
 	return {
 		async submit(

@@ -1,13 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
 import type { authClient } from "@/lib/auth-client";
 import { Link } from "@tanstack/react-router";
 import { User } from "lucide-react";
@@ -45,29 +37,11 @@ export function UserAuthMenu({ session }: UserAuthMenuProps) {
 	}
 
 	return (
-		<Dialog>
-			<DialogTrigger asChild>
-				<Button variant="outline" size="sm" className="gap-2">
-					<User className="h-4 w-4" />
-					<span>登录</span>
-				</Button>
-			</DialogTrigger>
-			<DialogContent className="sm:max-w-md">
-				<DialogHeader>
-					<DialogTitle>认证</DialogTitle>
-					<DialogDescription>
-						登录到你的账户或创建一个新账户以保存你的工作并访问更多功能。
-					</DialogDescription>
-				</DialogHeader>
-				<div className="flex flex-col gap-2 pt-4">
-					<Link to="/signin" className="w-full">
-						登录
-					</Link>
-					<Link to="/signin" className="w-full">
-						使用 OAuth 创建账户
-					</Link>
-				</div>
-			</DialogContent>
-		</Dialog>
+		<Button variant="outline" size="sm" className="gap-2" asChild>
+			<Link to="/signin">
+				<User className="h-4 w-4" />
+				<span>登录</span>
+			</Link>
+		</Button>
 	);
 }

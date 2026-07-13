@@ -7,6 +7,52 @@ import { createGenerationTaskService } from "../service";
 import { createTaskTestHarness, testPayloadKey } from "./fixtures";
 
 describe("generation task service", () => {
+	it("keeps the Web Crypto receiver when using the default task ID generator", async () => {
+		const randomUUID = crypto.randomUUID;
+		Object.defineProperty(crypto, "randomUUID", {
+			configurable: true,
+			value(this: Crypto) {
+				if (this !== crypto) throw new Error("missing Web Crypto receiver");
+				return "task-default";
+			},
+		});
+
+		const harness = await createTaskTestHarness();
+		try {
+			const service = createGenerationTaskService({
+				repository: createTaskRepository(harness.database),
+				workflow: {
+					create: async (options) => ({ id: options?.id ?? "" }) as never,
+					get: async () => ({ terminate: async () => undefined }) as never,
+				},
+				payloadKey: testPayloadKey,
+				fetchCatalog: async () => ({
+					models: [{ id: "gpt-5.6-sol" }] as never,
+					recommendedModelIds: ["gpt-5.6-sol"],
+					fetchedAt: new Date().toISOString(),
+				}),
+			});
+
+			await expect(
+				service.submit(
+					{ id: "user-1" },
+					{
+						providerId: "aihubmix",
+						modelId: "gpt-5.6-sol",
+						prompt: "private prompt",
+						apiKey: "secret-user-key",
+					},
+				),
+			).resolves.toMatchObject({ taskId: "task-default", status: "PENDING" });
+		} finally {
+			Object.defineProperty(crypto, "randomUUID", {
+				configurable: true,
+				value: randomUUID,
+			});
+			await harness.dispose();
+		}
+	});
+
 	it("validates from the catalog and sends only encrypted BYOK params", async () => {
 		const harness = await createTaskTestHarness();
 		try {
