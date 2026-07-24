@@ -52,20 +52,63 @@ test("@auth loads the authenticated product surfaces", async ({
 	await page.goto("/wizard");
 	await expect(page.locator("main, .container").first()).toBeVisible();
 
-	await page.goto("/preview");
+	const staleDialogueStore = JSON.stringify({
+		state: {
+			dialogues: [
+				{
+					id: 1,
+					submissions: [
+						{
+							id: 1,
+							input: {
+								prompt: "Preview fixture",
+								providerId: "aihubmix",
+								modelId: "gpt-5.6-sol",
+								apiKey: "local-e2e-key",
+								dialogueId: 1,
+								submissionId: 1,
+							},
+							response: {
+								taskId: "e2e-preview-task",
+								status: "COMPLETED",
+								code: "<section>Stale local preview</section>",
+								advices: [],
+							},
+							isLoading: false,
+						},
+					],
+					activeSubmissionId: 1,
+					selectedProviderId: "aihubmix",
+					selectedModelId: "gpt-5.6-sol",
+				},
+			],
+			activeDialogueId: 1,
+			defaultProviderId: "aihubmix",
+			defaultModelId: "gpt-5.6-sol",
+		},
+		version: 0,
+	});
+	await page.addInitScript((store) => {
+		localStorage.setItem("dialogue-storage", store);
+	}, staleDialogueStore);
+	await page.goto("/dashboard");
+	await expect(page.getByRole("link", { name: "预览" })).toHaveAttribute(
+		"href",
+		"/preview?taskId=e2e-preview-task",
+	);
+
+	await page.goto("/preview?taskId=e2e-preview-task");
 	const preview = page.locator('iframe[title="UI 预览"]');
 	await expect(preview).toBeVisible();
-	const previewBody = page
-		.frameLocator('iframe[title="UI 预览"]')
-		.locator("body");
-	await expect
-		.poll(async () =>
-			previewBody
-				.innerHTML()
-				.then((html) => html.length)
-				.catch(() => 0),
-		)
-		.toBeGreaterThan(100);
+	await expect(
+		page
+			.frameLocator('iframe[title="UI 预览"]')
+			.getByTestId("canonical-preview"),
+	).toHaveText("Preview task output");
+	const deniedTask = await page.request.get(
+		"/api/task/status?taskId=e2e-other-preview-task",
+	);
+	expect(deniedTask.status()).toBe(404);
 	await page.screenshot({
 		path: testInfo.outputPath("authenticated-desktop.png"),
 		fullPage: true,

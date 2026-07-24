@@ -4,6 +4,7 @@ import { generateAihubmixText } from "@/server/tasks/aihubmix";
 import { buildContextualPrompt } from "@/server/tasks/context";
 import { decryptTaskPayload } from "@/server/tasks/encryption";
 import type { TaskWorkflowPayload } from "@/server/tasks/input";
+import { normalizeTaskOutput } from "@/server/tasks/output";
 import { createTaskRepository } from "@/server/tasks/repository";
 import type { TaskOutput } from "@/types/task";
 import { extractAndParseJSON } from "@/utils/json-parser";
@@ -90,8 +91,8 @@ export async function executeGenerationTask(
 					prompt,
 				}),
 		);
-		const output = outputSchema.parse(
-			extractAndParseJSON<TaskOutput>(generation.text),
+		const output = normalizeTaskOutput(
+			outputSchema.parse(extractAndParseJSON<TaskOutput>(generation.text)),
 		);
 		const completed = await step.do("complete-task", () =>
 			repository.complete(params.taskId, output, generation.usage),

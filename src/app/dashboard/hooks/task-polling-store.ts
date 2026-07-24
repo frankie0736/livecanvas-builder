@@ -1,11 +1,11 @@
-import type { PollTaskResult, TaskRequest, TaskStatus } from "@/types/task";
-import { useCallback, useMemo, useState } from "react";
-import { useDialogueStore } from ".";
 import {
 	cancelTask as apiCancelTask,
 	pollTaskStatus,
 	submitChatTask,
-} from "../actions/task-service";
+} from "@/lib/task-client";
+import type { PollTaskResult, TaskRequest, TaskStatus } from "@/types/task";
+import { useCallback, useMemo, useState } from "react";
+import { useDialogueStore } from ".";
 import type { DialogueState } from "./dialogue-store/types";
 
 export interface TaskPollingOptions {

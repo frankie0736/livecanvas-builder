@@ -7,6 +7,52 @@ import { createGenerationTaskService } from "../service";
 import { createTaskTestHarness, testPayloadKey } from "./fixtures";
 
 describe("generation task service", () => {
+	it("returns completed output only to the task owner", async () => {
+		const harness = await createTaskTestHarness();
+		try {
+			const repository = createTaskRepository(harness.database);
+			await repository.create({
+				id: "completed-task",
+				userId: "user-1",
+				modelId: "gpt-5.6-sol",
+				encryptedPayload: "ciphertext",
+			});
+			await repository.markRunning("completed-task");
+			await repository.complete("completed-task", {
+				code: "<main>Preview</main>",
+				advices: [],
+			});
+			const service = createGenerationTaskService({
+				repository,
+				workflow: {
+					create: async (options) => ({ id: options?.id ?? "" }) as never,
+					get: async () => ({ terminate: async () => undefined }) as never,
+				},
+				payloadKey: testPayloadKey,
+			});
+
+			await expect(
+				service.status("user-1", "completed-task"),
+			).resolves.toMatchObject({
+				taskId: "completed-task",
+				status: "COMPLETED",
+				code: "<main>Preview</main>",
+			});
+			await expect(
+				service.status("other-user", "completed-task"),
+			).rejects.toMatchObject({
+				status: 404,
+			});
+			await expect(
+				service.status("user-1", "missing-task"),
+			).rejects.toMatchObject({
+				status: 404,
+			});
+		} finally {
+			await harness.dispose();
+		}
+	});
+
 	it("keeps the Web Crypto receiver when using the default task ID generator", async () => {
 		const randomUUID = crypto.randomUUID;
 		Object.defineProperty(crypto, "randomUUID", {

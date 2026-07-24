@@ -83,10 +83,9 @@ export default function ResultDisplay({ modelList }: ResultDisplayProps) {
 							modelList={modelList}
 						/>
 					)}
-					<PreviewButton
-						dialogueId={activeDialogue.id}
-						submissionId={activeSubmission.id}
-					/>
+					{activeSubmission.response.status === "COMPLETED" && (
+						<PreviewButton taskId={activeSubmission.response.taskId} />
+					)}
 					<CopyButton text={codeContent} />
 				</div>
 			</CardHeader>

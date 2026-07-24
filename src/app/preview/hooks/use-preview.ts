@@ -1,7 +1,5 @@
-import type { Dialogue } from "@/types/common";
-import { useRouterState } from "@tanstack/react-router";
+import { TaskStatusRequestError, fetchTaskStatus } from "@/lib/task-client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { notFoundExample } from "../mock-htmls/404";
 import { processCss } from "../utils/css-processor";
 
 // Device configuration
@@ -13,20 +11,12 @@ export const deviceConfigs = {
 	desktop: { width: "100%", height: "auto", label: "Desktop" },
 };
 
-interface StoreState {
-	state: {
-		dialogues: Dialogue[];
-	};
-}
+export type PreviewState =
+	| { kind: "loading"; title: string; message: string }
+	| { kind: "ready" }
+	| { kind: "unavailable"; title: string; message: string };
 
-export function usePreview() {
-	const searchString = useRouterState({
-		select: (state) => state.location.searchStr,
-	});
-	const searchParams = new URLSearchParams(searchString);
-	const dialogueId = searchParams.get("d");
-	const submissionId = searchParams.get("s");
-
+export function usePreview(taskId?: string) {
 	const [htmlContent, setHtmlContent] = useState<string>("");
 	const [iframeContent, setIframeContent] = useState<string>("");
 	const [device, setDevice] = useState<DeviceType>("desktop");
@@ -37,31 +27,38 @@ export function usePreview() {
 	const [availableThemes, setAvailableThemes] = useState<string[]>([]);
 	const [currentTheme, setCurrentTheme] = useState<string | null>(null);
 	const [hasDataTheme, setHasDataTheme] = useState(false);
+	const [previewState, setPreviewState] = useState<PreviewState>({
+		kind: "loading",
+		title: "正在加载预览",
+		message: "正在读取生成结果。",
+	});
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 
 	// Detect if HTML contains data-theme
 	const detectDataTheme = useCallback((html: string) => {
 		const hasDataThemeAttr = /<[^>]+data-theme=/i.test(html);
 		setHasDataTheme(hasDataThemeAttr);
+		if (!hasDataThemeAttr) {
+			setCurrentTheme(null);
+			return;
+		}
 
 		// Try to extract the current theme from the HTML
-		if (hasDataThemeAttr) {
-			// First check for data-theme in html tag
-			let match = html.match(/<html[^>]*data-theme=["']([^"']+)["']/i);
+		// First check for data-theme in html tag
+		let match = html.match(/<html[^>]*data-theme=["']([^"']+)["']/i);
 
-			// If not found in html tag, check for body tag
-			if (!match) {
-				match = html.match(/<body[^>]*data-theme=["']([^"']+)["']/i);
-			}
+		// If not found in html tag, check for body tag
+		if (!match) {
+			match = html.match(/<body[^>]*data-theme=["']([^"']+)["']/i);
+		}
 
-			// Check other elements if not found in html or body
-			if (!match) {
-				match = html.match(/data-theme=["']([^"']+)["']/i);
-			}
+		// Check other elements if not found in html or body
+		if (!match) {
+			match = html.match(/data-theme=["']([^"']+)["']/i);
+		}
 
-			if (match?.[1]) {
-				setCurrentTheme(match[1]);
-			}
+		if (match?.[1]) {
+			setCurrentTheme(match[1]);
 		}
 	}, []);
 
@@ -225,73 +222,79 @@ export function usePreview() {
 		[htmlContent, hasDataTheme, processHtml],
 	);
 
-	// Extract HTML content from the store based on dialogue and submission IDs
-	const getContentFromStore = useCallback(() => {
-		try {
-			// Get store from localStorage
-			const storeJson = localStorage.getItem("dialogue-storage");
-			if (!storeJson) return null;
-
-			const store: StoreState = JSON.parse(storeJson);
-
-			// If both dialogue and submission are provided in URL
-			if (dialogueId && submissionId) {
-				const dialogueIdNum = Number.parseInt(dialogueId, 10);
-				const submissionIdNum = Number.parseInt(submissionId, 10);
-
-				// Find the dialogue
-				const dialogue = store.state.dialogues.find(
-					(d) => d.id === dialogueIdNum,
-				);
-				if (!dialogue) return null;
-
-				// Find the submission
-				const submission = dialogue.submissions.find(
-					(v) => v.id === submissionIdNum,
-				);
-				if (!submission) return null;
-
-				// Extract content from response
-				const content = submission.response?.code || "";
-
-				// Handle different content formats
-				if (content.startsWith("<")) {
-					// Content is already HTML
-					return content;
-				}
-
-				if (content.startsWith("{")) {
-					// Content is JSON string, parse and extract code
-					try {
-						const parsedContent = JSON.parse(content);
-						return parsedContent.code || null;
-					} catch (error) {
-						console.error("Error parsing JSON content:", error);
-						return null;
-					}
-				}
-			}
-
-			return null;
-		} catch (error) {
-			console.error("Error getting content from store:", error);
-			return null;
-		}
-	}, [dialogueId, submissionId]);
-
-	// Load content and check for custom CSS on mount
+	// Load the completed result from the owner-scoped task API.
 	useEffect(() => {
-		// Get content from the store based on dialogue and submission IDs
-		let content = getContentFromStore();
+		let active = true;
+		setHtmlContent("");
+		setIframeContent("");
+		setHasDataTheme(false);
+		setCurrentTheme(null);
 
-		// If no content found, use example
-		if (!content) {
-			content = notFoundExample;
+		if (!taskId) {
+			setPreviewState({
+				kind: "unavailable",
+				title: "缺少预览任务",
+				message: "请从已完成的生成结果打开预览。",
+			});
+			return () => {
+				active = false;
+			};
 		}
 
-		setHtmlContent(content);
-		detectDataTheme(content);
+		setPreviewState({
+			kind: "loading",
+			title: "正在加载预览",
+			message: "正在读取生成结果。",
+		});
 
+		void fetchTaskStatus(taskId)
+			.then((task) => {
+				if (!active) return;
+				if (task.status === "COMPLETED") {
+					const content = task.code;
+					setHtmlContent(content);
+					detectDataTheme(content);
+					setPreviewState({ kind: "ready" });
+					return;
+				}
+				if (task.status === "PENDING" || task.status === "RUNNING") {
+					setPreviewState({
+						kind: "unavailable",
+						title: "生成仍在进行中",
+						message: "生成完成后可从结果区打开预览。",
+					});
+					return;
+				}
+				setPreviewState({
+					kind: "unavailable",
+					title: "预览不可用",
+					message: task.error || "该任务没有可预览的生成结果。",
+				});
+			})
+			.catch((error: unknown) => {
+				if (!active) return;
+				if (error instanceof TaskStatusRequestError && error.status === 404) {
+					setPreviewState({
+						kind: "unavailable",
+						title: "预览不可用",
+						message: "任务不存在或你无权查看它。",
+					});
+					return;
+				}
+				setPreviewState({
+					kind: "unavailable",
+					title: "无法加载预览",
+					message: "读取生成结果时出现错误，请稍后重试。",
+				});
+			});
+
+		return () => {
+			active = false;
+		};
+	}, [detectDataTheme, taskId]);
+
+	// Load the user's CSS preference independently of the task result.
+	useEffect(() => {
 		// Get the user's CSS from localStorage
 		const themeStore = localStorage.getItem("theme-store");
 		if (themeStore) {
@@ -316,7 +319,7 @@ export function usePreview() {
 			// No theme store at all
 			setShowCssMissingDialog(true);
 		}
-	}, [getContentFromStore, detectDataTheme]);
+	}, []);
 
 	// Process HTML with current CSS
 	useEffect(() => {
@@ -360,6 +363,7 @@ export function usePreview() {
 		hasDataTheme,
 		availableThemes,
 		currentTheme,
+		previewState,
 		setDevice,
 		handleCloseCssMissingDialog,
 		getContentToCopy,

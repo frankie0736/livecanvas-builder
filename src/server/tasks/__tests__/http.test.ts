@@ -67,4 +67,15 @@ describe("task HTTP contract", () => {
 		});
 		expect(response.status).toBe(401);
 	});
+
+	it("rejects anonymous task status requests", async () => {
+		const response = await createStatusHandler(async () => ({
+			service: service as never,
+			getSession: async () => null,
+		}))({
+			request: new Request("http://local.test/api/task/status?taskId=task-1"),
+		});
+		expect(response.status).toBe(401);
+		expect(response.headers.get("Cache-Control")).toBe("no-store, max-age=0");
+	});
 });

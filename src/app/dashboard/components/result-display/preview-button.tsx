@@ -1,28 +1,23 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
 import { Eye } from "lucide-react";
 
 interface PreviewButtonProps {
-	dialogueId: number;
-	submissionId: number;
+	taskId: string;
 }
 
-export function PreviewButton({
-	dialogueId,
-	submissionId,
-}: PreviewButtonProps) {
-	const handleClick = () => {
-		const url = `/preview?d=${dialogueId}&s=${submissionId}`;
-		window.open(url, "_blank");
-	};
-
+export function PreviewButton({ taskId }: PreviewButtonProps) {
 	return (
-		<Button
-			variant="ghost"
-			size="icon"
-			onClick={handleClick}
-			className="cursor-pointer"
-		>
-			<Eye className="h-4 w-4" />
+		<Button asChild variant="ghost" size="icon" className="cursor-pointer">
+			<Link
+				to="/preview"
+				search={{ taskId }}
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="预览"
+			>
+				<Eye className="h-4 w-4" />
+			</Link>
 		</Button>
 	);
 }

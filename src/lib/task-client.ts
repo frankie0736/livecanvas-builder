@@ -4,17 +4,23 @@ import type {
 	TaskCancellationResponse,
 	TaskRequest,
 } from "@/types/task";
-import { replaceLucideIcons } from "@/utils/replace-with-lucide-icon";
-import { replaceWithUnsplashImages } from "@/utils/replace-with-unsplash";
+
+export class TaskStatusRequestError extends Error {
+	readonly status: number;
+
+	constructor(status: number, message: string) {
+		super(message);
+		this.name = "TaskStatusRequestError";
+		this.status = status;
+	}
+}
 
 async function readError(response: Response) {
 	const body = (await response.json().catch(() => ({}))) as { error?: unknown };
 	return typeof body.error === "string" ? body.error : undefined;
 }
 
-/**
- * Submit a chat task to the API
- */
+/** Submit a chat task to the API. */
 export async function submitChatTask(params: TaskRequest): Promise<string> {
 	const result = await tryCatch(
 		fetch("/api/task/submit", {
@@ -46,9 +52,33 @@ export async function submitChatTask(params: TaskRequest): Promise<string> {
 	return data.taskId;
 }
 
-/**
- * Poll for task status until completion or error
- */
+export async function fetchTaskStatus(taskId: string): Promise<PollTaskResult> {
+	const result = await tryCatch(
+		fetch(`/api/task/status?taskId=${encodeURIComponent(taskId)}`, {
+			headers: { "Cache-Control": "no-cache" },
+		}),
+	);
+
+	if (result.error) {
+		throw new Error(
+			`Network error while reading task: ${result.error.message}`,
+		);
+	}
+
+	if (!result.data.ok) {
+		const error = await readError(result.data);
+		throw new TaskStatusRequestError(
+			result.data.status,
+			`API error: ${result.data.status} ${result.data.statusText}${
+				error ? ` - ${error}` : ""
+			}`,
+		);
+	}
+
+	return (await result.data.json()) as PollTaskResult;
+}
+
+/** Poll for task status until completion or error. */
 export async function pollTaskStatus(
 	taskId: string,
 	intervalMs = 3000,
@@ -62,35 +92,17 @@ export async function pollTaskStatus(
 		}
 
 		attempts++;
-
-		const result = await tryCatch(
-			fetch(`/api/task/status?taskId=${taskId}`, {
-				headers: { "Cache-Control": "no-cache" },
-			}),
-		);
-
-		if (result.error) {
-			throw new Error(`Network error while polling: ${result.error.message}`);
-		}
-
-		if (!result.data.ok) {
-			if (result.data.status === 404) {
-				// Task not found, continue polling
+		let data: PollTaskResult;
+		try {
+			data = await fetchTaskStatus(taskId);
+		} catch (error) {
+			if (error instanceof TaskStatusRequestError && error.status === 404) {
 				await new Promise((resolve) => setTimeout(resolve, intervalMs));
 				return pollOnce();
 			}
-
-			const error = await readError(result.data);
-			throw new Error(
-				`API error: ${result.data.status} ${result.data.statusText}${
-					error ? ` - ${error}` : ""
-				}`,
-			);
+			throw error;
 		}
 
-		const data = (await result.data.json()) as PollTaskResult;
-
-		// 根据任务状态处理响应
 		switch (data.status) {
 			case "PENDING":
 			case "RUNNING":
@@ -118,24 +130,18 @@ export async function pollTaskStatus(
 					error: "任务已被取消",
 				};
 
-			case "COMPLETED": {
+			case "COMPLETED":
 				if (!data.code) {
 					throw new Error("Task completed but no output received");
 				}
-				return {
-					...data,
-					code: replaceWithUnsplashImages(replaceLucideIcons(data.code)),
-				};
-			}
+				return data;
 		}
 	};
 
 	return pollOnce();
 }
 
-/**
- * 取消任务
- */
+/** Cancel a task. */
 export async function cancelTask(
 	taskId: string,
 ): Promise<TaskCancellationResponse> {

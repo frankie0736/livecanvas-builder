@@ -13,10 +13,19 @@ export default async function globalSetup() {
 	}
 	const now = Date.now();
 	const expiresAt = now + 24 * 60 * 60 * 1000;
+	const previewResult = JSON.stringify({
+		code: '<section data-testid="canonical-preview">Preview task output</section>',
+		advices: [],
+	});
 	const sql = [
-		"DELETE FROM user WHERE id = 'e2e-user'",
+		"DELETE FROM generation_task WHERE id IN ('e2e-preview-task', 'e2e-other-preview-task')",
+		"DELETE FROM session WHERE user_id IN ('e2e-user', 'e2e-other-user')",
+		"DELETE FROM user WHERE id IN ('e2e-user', 'e2e-other-user')",
 		`INSERT INTO user (id, name, email, email_verified, background_info, created_at, updated_at) VALUES ('e2e-user', 'Local Test User', 'local-e2e@example.test', 1, 'Local browser verification fixture', ${now}, ${now})`,
+		`INSERT INTO user (id, name, email, email_verified, created_at, updated_at) VALUES ('e2e-other-user', 'Other Test User', 'other-e2e@example.test', 1, ${now}, ${now})`,
 		`INSERT INTO session (id, expires_at, token, user_id, created_at, updated_at) VALUES ('e2e-session', ${expiresAt}, 'e2e-session-token', 'e2e-user', ${now}, ${now})`,
+		`INSERT INTO generation_task (id, user_id, workflow_instance_id, status, model, encrypted_payload, result, created_at, updated_at, completed_at) VALUES ('e2e-preview-task', 'e2e-user', 'e2e-preview-task', 'COMPLETED', 'gpt-5.6-sol', '', '${previewResult}', ${now}, ${now}, ${now})`,
+		`INSERT INTO generation_task (id, user_id, workflow_instance_id, status, model, encrypted_payload, result, created_at, updated_at, completed_at) VALUES ('e2e-other-preview-task', 'e2e-other-user', 'e2e-other-preview-task', 'COMPLETED', 'gpt-5.6-sol', '', '${previewResult}', ${now}, ${now}, ${now})`,
 	].join("; ");
 	execFileSync(
 		"bunx",
